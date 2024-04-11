@@ -4,7 +4,6 @@
 #include <ctype.h>
 #include "./definiciones.h"
 #include "./tablaSimbolos/tablaSimbolos.h"
-#include "./analizadorSintactico/analizadorSintactico.h"
 #include "./gestionErrores/gestionErrores.h"
 #include "lex.yy.h"
 

@@ -22,6 +22,12 @@ typedef struct token {
     int componente;  // Código numérico del componente léxico.
     char *lexema;    // Representación textual del token.
     struct token *next; // Para manejar colisiones mediante listas enlazadas.
+
+    union {
+        float valor;  // Valor numérico asociado al token.
+        double (*funcion)(double); // Puntero a función asociado al token.
+    } valorUnion;
+    
 } token;
 
 // Alias para mejorar la legibilidad del código al trabajar con la tabla de hash. 
@@ -65,9 +71,10 @@ void printTable(hashTable tabla);
  * @param tabla Puntero a la tabla de hash.
  * @param lexema Lexema del token.
  * @param componente Componente léxico del token.
+ * @param valor Valor asociado al token.
  * @return 1 si la inserción fue exitosa, 0 en caso contrario.
  */
-int insertToken(hashTable *tabla, char *lexema, int componente);
+int insertToken(hashTable *tabla, char *lexema, int componente, float valor);
 
 /**
  * Busca un token en la tabla de hash por su lexema.
@@ -90,8 +97,9 @@ int deleteToken(hashTable tabla, char *lexema);
  * @param tabla Puntero a la tabla de hash.
  * @param lexema Lexema del token a modificar.
  * @param componente Nuevo componente léxico para el token.
+ * @param valor Nuevo valor asociado al token.
  * @return 1 si la modificación fue exitosa, 0 si no se encontró el token.
  */
-int modifyToken(hashTable *tabla, char * lexema, int componente);
+int modifyToken(hashTable *tabla, char * lexema, int componente, float valor);
 
 #endif //TABLAHASH_H

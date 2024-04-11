@@ -17,30 +17,29 @@
 // Inicializacion de la tabla de símbolos con las palabras reservadas del lenguaje
 int inicializarTabla(hashTable *tabla){
 
-    char *keywords[9];
+    char *keywords[3];
 
-    keywords[0] = "for";
-    keywords[1] = "if";
-    keywords[2] = "else";
-    keywords[3] = "in";
-    keywords[4] = "not";
-    keywords[5] = "return";
-    keywords[6] = "import";
-    keywords[7] = "from";
-    keywords[8] = "as";
+    keywords[0] = "pi";
+    keywords[1] = "e";
+    keywords[2] = "phi";
 
     if(initHashTable(tabla, TAM_INICIAL) == 0){
         printf("Error al inicializar la tabla de hash\n");
         return 0;
     }
 
-    // Insertamos las palabras reservadas en la tabla de hash
-    for(int i = 0; i < sizeof(keywords)/sizeof(keywords[0]); i++){
-        if(insertToken(tabla, keywords[i], i + 300) == 0){
-            printf("Error al insertar el token %s en la tabla de hash\n", keywords[i]);
-        }
+    if(insertToken(tabla, keywords[0], CONSTANT, PI) == 0){
+        printf("Error al insertar el token %s en la tabla de hash\n", keywords[0]);
     }
 
+    if(insertToken(tabla, keywords[1], CONSTANT, E) == 0){
+        printf("Error al insertar el token %s en la tabla de hash\n", keywords[1]);
+    }
+
+    if(insertToken(tabla, keywords[2], CONSTANT, PHI) == 0){
+        printf("Error al insertar el token %s en la tabla de hash\n", keywords[2]);
+    }
+    
     return 1;
 }
 
@@ -56,12 +55,12 @@ void imprimirTabla(hashTable tabla){
 
 // Inserta el elemento en la tabla de símbolos llamando a la funcion de la tabla de hash
 int insertarElemento(token t, hashTable *tabla){
-    return insertToken(tabla, t.lexema, t.componente);
+    return insertToken(tabla, t.lexema, VARIABLE, t.valorUnion.valor);
 }
 
 // Modifica el elemento en la tabla de símbolos llamando a la funcion de la tabla de hash
 int modificarElemento(token t, hashTable tabla){
-    return modifyToken(&tabla, t.lexema, t.componente);
+    return modifyToken(&tabla, t.lexema, t.componente, t.valorUnion.valor);
 }
 
 // Busca el elemento en la tabla de símbolos llamando a la funcion de la tabla de hash

@@ -6,23 +6,16 @@
 
 //--------------------------- Definiciones ------------------------------
 
-// Definiciones para las keywords 
-#define FOR 300
-#define IF 301
-#define ELSE 302
-#define IN 303
-#define NOT 304
-#define RETURN 305
-#define IMPORT 306
-#define FROM 307
-#define AS 308
+// Definición de las constantes
+#define PI 3.14159265358979323846
+#define E 2.71828182845904523536
+#define PHI 1.6180339887498948482
 
-// Definiciones para los operadores
-#define ID 309
-#define NUM_INT 310
-#define NUM_FLOAT 311
-#define STRING 312
-#define OP 313
-#define DEL 314
+// Definición de los componentes léxicos
+#define CONSTANT 300
+#define VARIABLE 301
+#define FUNCTION 302
+
+
 
 

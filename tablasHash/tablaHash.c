@@ -149,7 +149,7 @@ void printTable(hashTable tabla) {
 }
 
 // Inserta un nuevo token, redimensionando la tabla si es necesario.
-int insertToken(hashTable *tabla, char *lexema, int componente){
+int insertToken(hashTable *tabla, char *lexema, int componente, float valor){
 
     if (*tabla == NULL) return 0; 
 
@@ -163,6 +163,7 @@ int insertToken(hashTable *tabla, char *lexema, int componente){
     // del sistema
     nuevoToken->lexema = strdup(lexema); 
     nuevoToken->componente = componente; 
+    nuevoToken->valorUnion.valor = valor;
     nuevoToken->next = NULL;
 
     // Si hay colisión, insertamos el nuevo token al principio de la lista enlazada
@@ -232,7 +233,7 @@ int deleteToken(hashTable tabla, char *lexema) {
 }
 
 // Actualiza el componente léxico de un token existente.
-int modifyToken(hashTable *tabla, char * lexema, int componente){
+int modifyToken(hashTable *tabla, char * lexema, int componente, float valor){
 
     int componenteAux = searchTokenComponent(*tabla, lexema);
 
@@ -240,7 +241,7 @@ int modifyToken(hashTable *tabla, char * lexema, int componente){
 
     else {
         deleteToken(*tabla, lexema);
-        insertToken(tabla, lexema, componente);
+        insertToken(tabla, lexema, componente, valor);
         
         return 1;
     } 
