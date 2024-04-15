@@ -20,7 +20,6 @@
     float numero;
 }
 
-
 %start entrada
 
 %token <numero> NUMERO
@@ -47,9 +46,7 @@
 %right ASIGNAR
 %left '+' '-'
 %left '*' '/'
-%left '%'
-%left NEGATIVO
-%right '^'
+%left '%' '^'
 
 %type <numero> expresion
 %type <numero> definicion
@@ -63,10 +60,11 @@ entrada:
     | entrada linea
 ;
 
-linea:  '\n'  {printf("$ ");}
-    | expresion ';' '\n' {printf("> %f\n$ ", $1);}
-    | expresion '\n' {printf("\n$ ");}
-    | error {yyclearin; yyerrok;}
+linea:
+    '\n' { printf("calculadoraBison:~$ "); }
+    | expresion ';' '\n' { printf("> %f\n$ ", $1); }
+    | expresion '\n' { printf("\n$ "); }
+    | error { yyclearin; yyerrok; }
 ;
 
 expresion:
@@ -83,7 +81,6 @@ expresion:
     | TABLA { imprimirTabla(); }
     | definicion
     | operaciones
-    | funciones
     | booleano
     | archivo
 ;

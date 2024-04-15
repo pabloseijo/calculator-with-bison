@@ -57,8 +57,7 @@
      MAYOR_IGUAL = 273,
      MENOR_IGUAL = 274,
      IGUAL_IGUAL = 275,
-     ASIGNAR = 276,
-     NEGATIVO = 277
+     ASIGNAR = 276
    };
 #endif
 /* Tokens.  */
@@ -81,7 +80,6 @@
 #define MENOR_IGUAL 274
 #define IGUAL_IGUAL 275
 #define ASIGNAR 276
-#define NEGATIVO 277
 
 
 
@@ -94,7 +92,7 @@ typedef union YYSTYPE
     float numero;
 }
 /* Line 1529 of yacc.c.  */
-#line 98 "pySintactico.tab.h"
+#line 96 "pySintactico.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

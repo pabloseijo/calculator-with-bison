@@ -77,5 +77,5 @@ int borrarElemento(char *lexema){
 
 // Busca el valor asociado a un token por su lexema
 float obtenerValor(char *lexema){
-    return getValue(tabla, lexema);
+    return getValue(lexema, tabla);  
 }
