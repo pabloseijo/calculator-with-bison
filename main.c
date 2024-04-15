@@ -6,29 +6,24 @@
 #include "./tablaSimbolos/tablaSimbolos.h"
 #include "./gestionErrores/gestionErrores.h"
 #include "lex.yy.h"
+#include "pySintactico.tab.h"
 
 int main(int argc,char *argv[]){
 
-    char *nombreFichero = argv[1];
-
-    if(argc != 2){
-        numParametrosIncorrecto();
-    }
-
-    abrirArchivo(nombreFichero);
 
     hashTable tabla;
 
     inicializarTabla(&tabla);
 
-    imprimirTabla(tabla);
+    //imprimirTabla(tabla);
     
-    iniciarAnalisis(&tabla);
+    printf("calculadoraBison:~$ ");
 
-    imprimirTabla(tabla);
+    yyparse();
+
+    //imprimirTabla(tabla);
 
     destruirTabla(tabla);
-    cerrarArchivo();
 
     printf("\n");
 }

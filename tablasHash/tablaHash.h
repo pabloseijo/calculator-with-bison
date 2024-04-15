@@ -102,4 +102,12 @@ int deleteToken(hashTable tabla, char *lexema);
  */
 int modifyToken(hashTable *tabla, char * lexema, int componente, float valor);
 
+/**
+ * Obtiene el valor asociado a un token en la tabla de hash.
+ * @param lexema Lexema del token a buscar.
+ * @param tabla Tabla de hash.
+ * @return Valor asociado al token si se encuentra, 0 si no se encuentra.
+*/
+float getValue(char *lexema, hashTable tabla);
+
 #endif //TABLAHASH_H

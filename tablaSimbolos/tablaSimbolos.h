@@ -19,36 +19,23 @@
 #include "../definiciones.h"
 #include "../tablasHash/tablaHash.h"
 
-/**
- * La estructura token es la siguiente:
- * 
- * typedef struct token {
- *      int componente; // Código numérico del componente léxico.
- *      char* lexema;  // Representación textual del token.
- *      struct token *next; // Para la implementacion de las listas enlazadas
- * } token;
-*/
-
 //------------------------------- Funciones de Estructura ------------------------------
 
 /**
  * @brief Función que inicializa la tabla de símbolos, introduciendo las palabras reservadas del lenguaje
- * @param tabla: tabla de símbolos que se inicializará
  * @return 1 si se ha inicializado correctamente, 0 si no se ha podido inicializar
 */
-int inicializarTabla(hashTable *tabla);
+int inicializarTabla();
 
 /**
  * @brief Función que destruye la tabla de símbolos
- * @param tabla: tabla de símbolos que se destruirá
 */
-void destruirTabla(hashTable tabla);
+void destruirTabla();
 
 /**
  * @brief Función que imprime la tabla de símbolos
- * @param tabla: tabla de símbolos que se imprimirá
 */
-void imprimirTabla(hashTable tabla);
+void imprimirTabla();
 
 
 //------------------------------- Funciones de Interacción ------------------------------
@@ -56,36 +43,38 @@ void imprimirTabla(hashTable tabla);
 /**
  * @brief Función que inserta un elemento en la tabla de símbolos
  * @param t: variable de tipo token que contiene el componente léxico a insertar
- * @param tabla: tabla de símbolos en la que se insertará el componente léxico
+ * @param valor: valor que se le asignará al componente léxico
  * @return 1 si se ha insertado correctamente, 0 si no se ha podido insertar
 */
-int insertarElemento(token t, hashTable *tabla);
+int insertarElemento(token t, float valor);
 
 /**
  * @brief Función que modifica un elemento en la tabla de símbolos es importante entender que el 
  *        lexema no se puede modificar, por que si no no se podria encontrar el token (Hay que 
  *        pasarle el componente ya modificado)
  * @param t: variable de tipo token que contiene el componente léxico a modificar
- * @param tabla: tabla de símbolos en la que se modificará el componente léxico
+ * @param valor: valor que se le asignará al componente léxico
 */
-int modificarElemento(token t, hashTable tabla);
+int modificarElemento(token t, float valor);
 
 /**
  * @brief Función que busca un elemento en la tabla de símbolos. 
- * @param t: variable de tipo token que contiene el componente léxico a buscar, y que será 
- *          comparado con los elementos de la tabla y modificara el componente léxico de t
- * @param tabla: tabla de símbolos en la que se buscará el componente léxico
- * @return componente si se ha encontrado, 0 si no
+ * @param lexema: lexema que se buscará
+ * @return componente léxico si se ha encontrado, 0 si no se ha encontrado
 */
-int buscarElemento(char *lexema, hashTable tabla);
+int buscarComponente(char *lexema);
 
 /**
  * @brief Función que borra un elemento en la tabla de símbolos
  * @param lexema: lexema que se eliminará
- * @param tabla: tabla de símbolos en la que se eliminará el componente léxico
  * @return 1 si se ha eliminado correctamente, 0 si no se ha podido eliminar
 */
-int borrarElemento(char *lexema, hashTable tabla);
+int borrarElemento(char *lexema);
 
+/**
+ * @brief Función que obtiene el valor asociado a un token por su lexema
+ * @param lexema: lexema del token
+*/
+float obtenerValor(char *lexema);
 
 #endif	// TABLASIMBOLOS_H

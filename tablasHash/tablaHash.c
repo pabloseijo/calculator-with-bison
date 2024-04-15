@@ -247,6 +247,24 @@ int modifyToken(hashTable *tabla, char * lexema, int componente, float valor){
     } 
 }
 
+ // Obtiene el valor asociado a un token por su lexema
+float getValue(char *lexema, hashTable tabla) {
+
+    int index = hash(lexema);
+
+    token *actual = tabla[index];
+
+    // Recorremos la lista enlazada en la posición de la tabla
+    while (actual != NULL) {
+        if (strcmp(actual->lexema, lexema) == 0) {
+            return actual->valorUnion.valor; 
+        }
+
+        actual = actual->next;
+    }
+
+    return 0;
+}
 //------------------------------- Funciones privadas ------------------------------
 
 // Cacula el hash para un string dado.

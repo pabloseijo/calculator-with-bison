@@ -12,9 +12,9 @@
 #define PHI 1.6180339887498948482
 
 // Definición de los componentes léxicos
-#define CONSTANT 300
+#define CONSTANTE 300
 #define VARIABLE 301
-#define FUNCTION 302
+#define FUNCION 302
 
 
 
