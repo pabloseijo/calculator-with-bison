@@ -62,10 +62,11 @@ entrada:
 
 linea:
     '\n' { printf("calculadoraBison:~$ "); }
-    | expresion ';' '\n' { printf("> %f\n$ ", $1); }
-    | expresion '\n' { printf("\n$ "); }
+    | expresion ';' '\n' { printf("> %f\ncalculadoraBison:~$ ", $1); }  
+    | expresion '\n' { printf("> %f\ncalculadoraBison:~$ ", $1); }  
     | error { yyclearin; yyerrok; }
 ;
+
 
 expresion:
     NUMERO { $$ = $1; }
@@ -110,10 +111,10 @@ definicion:
 ;
 
 operaciones:
-    expresion '+' expresion { $$ = $1 + $3; }
-    | expresion '-' expresion { $$ = $1 - $3; }
-    | expresion '*' expresion { $$ = $1 * $3; }
-    | expresion '/' expresion {
+    expresion '+' expresion { $$ = $1 + $3; }  
+    | expresion '-' expresion { $$ = $1 - $3; }  
+    | expresion '*' expresion { $$ = $1 * $3; } 
+    | expresion '/' expresion {                
         if($3 != 0) {
             $$ = $1 / $3;
         } else {
@@ -121,6 +122,7 @@ operaciones:
         }
     }
 ;
+
 
 booleano:
     expresion '>' expresion { $$ = $1 > $3; }

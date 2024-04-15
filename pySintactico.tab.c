@@ -462,9 +462,9 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    59,    59,    60,    64,    65,    66,    67,    71,    72,
-      73,    80,    81,    82,    83,    84,    85,    89,   113,   114,
-     115,   116,   126,   127,   128,   129,   130,   134
+       0,    59,    59,    60,    64,    65,    66,    67,    72,    73,
+      74,    81,    82,    83,    84,    85,    86,    90,   114,   115,
+     116,   117,   128,   129,   130,   131,   132,   136
 };
 #endif
 
@@ -1406,17 +1406,17 @@ yyreduce:
     {
         case 4:
 #line 64 "pySintactico.y"
-    { printf("$ "); ;}
+    { printf("calculadoraBison:~$ "); ;}
     break;
 
   case 5:
 #line 65 "pySintactico.y"
-    { printf("> %f\n$ ", (yyvsp[(1) - (3)].numero)); ;}
+    { printf("> %f\ncalculadoraBison:~$ ", (yyvsp[(1) - (3)].numero)); ;}
     break;
 
   case 6:
 #line 66 "pySintactico.y"
-    { printf("\n$ "); ;}
+    { printf("> %f\ncalculadoraBison:~$ ", (yyvsp[(1) - (2)].numero)); ;}
     break;
 
   case 7:
@@ -1425,17 +1425,17 @@ yyreduce:
     break;
 
   case 8:
-#line 71 "pySintactico.y"
+#line 72 "pySintactico.y"
     { (yyval.numero) = (yyvsp[(1) - (1)].numero); ;}
     break;
 
   case 9:
-#line 72 "pySintactico.y"
+#line 73 "pySintactico.y"
     { (yyval.numero) = -(yyvsp[(2) - (2)].numero); ;}
     break;
 
   case 10:
-#line 73 "pySintactico.y"
+#line 74 "pySintactico.y"
     {
         if (buscarComponente((yyvsp[(1) - (1)].cadena)) != 0) {
             (yyval.numero) = obtenerValor((yyvsp[(1) - (1)].cadena));
@@ -1446,17 +1446,17 @@ yyreduce:
     break;
 
   case 11:
-#line 80 "pySintactico.y"
+#line 81 "pySintactico.y"
     { (yyval.numero) = (yyvsp[(2) - (3)].numero); ;}
     break;
 
   case 12:
-#line 81 "pySintactico.y"
+#line 82 "pySintactico.y"
     { imprimirTabla(); ;}
     break;
 
   case 17:
-#line 89 "pySintactico.y"
+#line 90 "pySintactico.y"
     {
         token t;
         t.lexema = (yyvsp[(1) - (3)].cadena);
@@ -1481,23 +1481,23 @@ yyreduce:
     break;
 
   case 18:
-#line 113 "pySintactico.y"
+#line 114 "pySintactico.y"
     { (yyval.numero) = (yyvsp[(1) - (3)].numero) + (yyvsp[(3) - (3)].numero); ;}
     break;
 
   case 19:
-#line 114 "pySintactico.y"
+#line 115 "pySintactico.y"
     { (yyval.numero) = (yyvsp[(1) - (3)].numero) - (yyvsp[(3) - (3)].numero); ;}
     break;
 
   case 20:
-#line 115 "pySintactico.y"
+#line 116 "pySintactico.y"
     { (yyval.numero) = (yyvsp[(1) - (3)].numero) * (yyvsp[(3) - (3)].numero); ;}
     break;
 
   case 21:
-#line 116 "pySintactico.y"
-    {
+#line 117 "pySintactico.y"
+    {                
         if((yyvsp[(3) - (3)].numero) != 0) {
             (yyval.numero) = (yyvsp[(1) - (3)].numero) / (yyvsp[(3) - (3)].numero);
         } else {
@@ -1507,32 +1507,32 @@ yyreduce:
     break;
 
   case 22:
-#line 126 "pySintactico.y"
+#line 128 "pySintactico.y"
     { (yyval.numero) = (yyvsp[(1) - (3)].numero) > (yyvsp[(3) - (3)].numero); ;}
     break;
 
   case 23:
-#line 127 "pySintactico.y"
+#line 129 "pySintactico.y"
     { (yyval.numero) = (yyvsp[(1) - (3)].numero) < (yyvsp[(3) - (3)].numero); ;}
     break;
 
   case 24:
-#line 128 "pySintactico.y"
+#line 130 "pySintactico.y"
     { (yyval.numero) = (yyvsp[(1) - (3)].numero) >= (yyvsp[(3) - (3)].numero); ;}
     break;
 
   case 25:
-#line 129 "pySintactico.y"
+#line 131 "pySintactico.y"
     { (yyval.numero) = (yyvsp[(1) - (3)].numero) <= (yyvsp[(3) - (3)].numero); ;}
     break;
 
   case 26:
-#line 130 "pySintactico.y"
+#line 132 "pySintactico.y"
     { (yyval.numero) = (yyvsp[(1) - (3)].numero) == (yyvsp[(3) - (3)].numero); ;}
     break;
 
   case 27:
-#line 134 "pySintactico.y"
+#line 136 "pySintactico.y"
     { abrirArchivo((yyvsp[(2) - (2)].cadena)); ;}
     break;
 
@@ -1752,7 +1752,7 @@ yyreturn:
 }
 
 
-#line 136 "pySintactico.y"
+#line 138 "pySintactico.y"
 
 
 void yyerror(char *mensaje) {
