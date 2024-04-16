@@ -110,4 +110,10 @@ int modifyToken(hashTable *tabla, char * lexema, int componente, float valor);
 */
 float getValue(char *lexema, hashTable tabla);
 
+/**
+ * Imprime el espacio de trabajo con los tokens y sus valores asociados.
+ * @param tabla Tabla de hash que se imprimirá.
+*/
+void printWorkingSpace(hashTable tabla);
+
 #endif //TABLAHASH_H

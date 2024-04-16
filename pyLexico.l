@@ -56,14 +56,23 @@ IGUALDAD         ==
 
 NOMBRE_ARCHIVO   {ID}(\.{letra}+)?
 
+%x READ
 
 %%
+
+"help"                  {return HELP;}
+"exit"			        {yyterminate();}
+"clear"                 {return CLEAR;}
+"workspace"             {return WORKSPACE;}
+"load "                 {BEGIN(READ); return LOAD;}
 
 {espacio}       ;        /* Ignorar espacios y tabulaciones */
 {saltoLinea}    ;        return ((int) *yytext);
 
 {ID}                     {yylval.cadena = strdup(yytext); return IDENTIFICADOR;}
 {NUMERO}                 {yylval.numero = atof(yytext); return NUMERO;}
+
+<READ>{NOMBRE_ARCHIVO}   {yylval.cadena = strdup(yytext); BEGIN(INITIAL); return NOMBRE_ARCHIVO;}
 
 {OPERADORES}             {return ((int) *yytext);}
 {SUMASIGNACION}          {return SUMA;}

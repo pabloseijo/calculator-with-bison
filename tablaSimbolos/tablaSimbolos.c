@@ -79,3 +79,7 @@ int borrarElemento(char *lexema){
 float obtenerValor(char *lexema){
     return getValue(lexema, tabla);  
 }
+
+void imprimirEspacioTrabajo(){
+    printWorkingSpace(tabla);
+}

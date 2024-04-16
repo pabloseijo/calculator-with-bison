@@ -13,6 +13,7 @@
 #include <string.h>
 #include <stdint.h>
 #include "tablaHash.h"
+#include "../definiciones.h"
 
 // Tamaño inicial de la tabla de hash y número de elementos almacenados.
 int TABLE_SIZE = 0;
@@ -264,6 +265,27 @@ float getValue(char *lexema, hashTable tabla) {
     }
 
     return 0;
+}
+
+// Imprime el espacio de trabajo actual.
+void printWorkingSpace(hashTable tabla) {
+    printf("\n------ Espacio de trabajo ------\n\n");
+
+    int isEmpty = 1;
+    for (int index = 0; index < TABLE_SIZE; ++index) {
+        for (token *actual = tabla[index]; actual != NULL; actual = actual->next) {
+            if (actual->componente == VARIABLE) {
+                printf("%s = %.2f\n", actual->lexema, actual->valorUnion.valor);
+                isEmpty = 0;
+            }
+        }
+    }
+
+    if (isEmpty) {
+        printf("No hay variables definidas.\n");
+    }
+
+    printf("\n--------------- x ---------------\n");
 }
 //------------------------------- Funciones privadas ------------------------------
 

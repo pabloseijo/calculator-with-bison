@@ -42,44 +42,42 @@
      NUMERO = 258,
      NOMBRE_ARCHIVO = 259,
      IDENTIFICADOR = 260,
-     AYUDA = 261,
-     SALIR = 262,
-     LIMPIAR = 263,
-     ESPACIO_TRABAJO = 264,
-     TABLA = 265,
-     CARGAR = 266,
-     SUMA = 267,
-     RESTA = 268,
-     MULTIPLICACION = 269,
-     DIVISION = 270,
-     MODULO = 271,
-     POTENCIA = 272,
-     MAYOR_IGUAL = 273,
-     MENOR_IGUAL = 274,
-     IGUAL_IGUAL = 275,
-     ASIGNAR = 276
+     HELP = 261,
+     EXIT = 262,
+     CLEAR = 263,
+     WORKSPACE = 264,
+     LOAD = 265,
+     SUMA = 266,
+     RESTA = 267,
+     MULTIPLICACION = 268,
+     DIVISION = 269,
+     MODULO = 270,
+     POTENCIA = 271,
+     MAYOR_IGUAL = 272,
+     MENOR_IGUAL = 273,
+     IGUAL_IGUAL = 274,
+     ASIGNAR = 275
    };
 #endif
 /* Tokens.  */
 #define NUMERO 258
 #define NOMBRE_ARCHIVO 259
 #define IDENTIFICADOR 260
-#define AYUDA 261
-#define SALIR 262
-#define LIMPIAR 263
-#define ESPACIO_TRABAJO 264
-#define TABLA 265
-#define CARGAR 266
-#define SUMA 267
-#define RESTA 268
-#define MULTIPLICACION 269
-#define DIVISION 270
-#define MODULO 271
-#define POTENCIA 272
-#define MAYOR_IGUAL 273
-#define MENOR_IGUAL 274
-#define IGUAL_IGUAL 275
-#define ASIGNAR 276
+#define HELP 261
+#define EXIT 262
+#define CLEAR 263
+#define WORKSPACE 264
+#define LOAD 265
+#define SUMA 266
+#define RESTA 267
+#define MULTIPLICACION 268
+#define DIVISION 269
+#define MODULO 270
+#define POTENCIA 271
+#define MAYOR_IGUAL 272
+#define MENOR_IGUAL 273
+#define IGUAL_IGUAL 274
+#define ASIGNAR 275
 
 
 
@@ -92,7 +90,7 @@ typedef union YYSTYPE
     float numero;
 }
 /* Line 1529 of yacc.c.  */
-#line 96 "pySintactico.tab.h"
+#line 94 "pySintactico.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

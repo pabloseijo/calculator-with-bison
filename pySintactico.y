@@ -26,12 +26,11 @@
 %token <cadena> NOMBRE_ARCHIVO
 %token <cadena> IDENTIFICADOR
 
-%token AYUDA
-%token SALIR
-%token LIMPIAR
-%token ESPACIO_TRABAJO
-%token TABLA
-%token CARGAR
+%token HELP
+%token EXIT
+%token CLEAR
+%token WORKSPACE
+%token LOAD
 
 %token SUMA
 %token RESTA
@@ -63,6 +62,7 @@ entrada:
 linea:
     '\n' { printf("calculadoraBison:~$ "); }
     | expresion ';' '\n' { printf("> %f\ncalculadoraBison:~$ ", $1); }  
+    | booleano ';' '\n' { printf("\ncalculadoraBison:~$ "); }  
     | expresion '\n' { printf("\ncalculadoraBison:~$ "); }  
     | error { yyclearin; yyerrok; }
 ;
@@ -79,7 +79,7 @@ expresion:
         }
     }
     | '(' expresion ')' { $$ = $2; }
-    | TABLA { imprimirTabla(); }
+    | WORKSPACE {imprimirEspacioTrabajo();}
     | definicion
     | operaciones
     | booleano
@@ -124,16 +124,18 @@ operaciones:
 ;
 
 
-booleano:
-    expresion '>' expresion { $$ = $1 > $3; }
-    | expresion '<' expresion { $$ = $1 < $3; }
-    | expresion MAYOR_IGUAL expresion { $$ = $1 >= $3; }
-    | expresion MENOR_IGUAL expresion { $$ = $1 <= $3; }
-    | expresion IGUAL_IGUAL expresion { $$ = $1 == $3; }
+booleano:	
+        expresion '>' expresion {$1 > $3 ? printf("TRUE\n") : printf("FALSE\n");}
+		| expresion '<' expresion {$1 < $3 ? printf("TRUE\n") : printf("FALSE\n");}
+		| expresion MAYOR_IGUAL expresion {$1 >= $3 ? printf("TRUE\n") : printf("FALSE\n");}
+		| expresion MENOR_IGUAL expresion {$1 <= $3 ? printf("TRUE\n") : printf("FALSE\n");}
+		| expresion IGUAL_IGUAL expresion {$1 == $3 ? printf("TRUE\n") : printf("FALSE\n");}
 ;
 
+
 archivo:
-    CARGAR NOMBRE_ARCHIVO { abrirArchivo($2); }
+    LOAD NOMBRE_ARCHIVO { abrirArchivo($2); }
+
 
 %%
 
@@ -142,9 +144,9 @@ void yyerror(char *mensaje) {
 }
 
 void mostrarAyuda() {
-    printf("\n\tAYUDA\n\t\t Imprime la función de ayuda\n\n");
-    printf("\tSALIR\n\t\t Cierra el programa\n\n");
-    printf("\tLIMPIAR\n\t\t Limpiar el buffer de variables y funciones\n\n");
-    printf("\tWORKSPACE\n\t\t Muestra el espacio de trabajo\n\n");
-    printf("\tTABLA\n\t\t Muestra la tabla de símbolos\n\n");
+    printf("\n\t HELP \n\t\t Imprime la función de ayuda\n\n");
+    printf("\t EXIT \n\t\t Cierra el programa\n\n");
+    printf("\t CLEAR \n\t\t Limpiar el buffer de variables y funciones\n\n");
+    printf("\t WORKSPACE \n\t\t Muestra el espacio de trabajo\n\n");
+    printf("\t TABLA \n\t\t Muestra la tabla de símbolos\n\n");
 }

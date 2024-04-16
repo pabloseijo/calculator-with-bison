@@ -77,4 +77,9 @@ int borrarElemento(char *lexema);
 */
 float obtenerValor(char *lexema);
 
+/**
+ * @brief Función que imprime el espacio de trabajo
+*/
+void imprimirEspacioTrabajo();
+
 #endif	// TABLASIMBOLOS_H
