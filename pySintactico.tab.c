@@ -1416,7 +1416,7 @@ yyreduce:
 
   case 6:
 #line 66 "pySintactico.y"
-    { printf("> %f\ncalculadoraBison:~$ ", (yyvsp[(1) - (2)].numero)); ;}
+    { printf("\ncalculadoraBison:~$ "); ;}
     break;
 
   case 7:

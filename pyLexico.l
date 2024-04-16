@@ -42,7 +42,7 @@ floatnumber       {pointfloat}|{exponentfloat}
 NUMERO           {decinteger}|{floatnumber}
 
 /* Operadores y símbolos */
-OPERADORES       [+*/%&,.:|^<>=!~()[\]{}-]
+OPERADORES       [+*/%&,;.:|^<>=!~()[\]{}-]
 SUMASIGNACION    \+=
 RESTASIGNACION   \-=
 MULTASIGNACION   \*=

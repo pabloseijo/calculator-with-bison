@@ -63,7 +63,7 @@ entrada:
 linea:
     '\n' { printf("calculadoraBison:~$ "); }
     | expresion ';' '\n' { printf("> %f\ncalculadoraBison:~$ ", $1); }  
-    | expresion '\n' { printf("> %f\ncalculadoraBison:~$ ", $1); }  
+    | expresion '\n' { printf("\ncalculadoraBison:~$ "); }  
     | error { yyclearin; yyerrok; }
 ;
 
