@@ -30,6 +30,8 @@
 %token EXIT
 %token CLEAR
 %token WORKSPACE
+%token DELETE_WORKSPACE
+%token TABLA
 %token LOAD
 
 %token SUMA
@@ -80,6 +82,9 @@ expresion:
     }
     | '(' expresion ')' { $$ = $2; }
     | WORKSPACE {imprimirEspacioTrabajo();}
+    | DELETE_WORKSPACE {eliminarEspacioTrabajo();}
+    | HELP {mostrarAyuda();}
+    | TABLA {imprimirTabla();}
     | definicion
     | operaciones
     | booleano
@@ -144,9 +149,13 @@ void yyerror(char *mensaje) {
 }
 
 void mostrarAyuda() {
-    printf("\n\t HELP \n\t\t Imprime la función de ayuda\n\n");
-    printf("\t EXIT \n\t\t Cierra el programa\n\n");
-    printf("\t CLEAR \n\t\t Limpiar el buffer de variables y funciones\n\n");
-    printf("\t WORKSPACE \n\t\t Muestra el espacio de trabajo\n\n");
-    printf("\t TABLA \n\t\t Muestra la tabla de símbolos\n\n");
+
+    printf("\nUsage: [operation] | [command]\n");
+
+    printf("\nCommands: \n");
+    printf("\n\t help \n\t\t Imprime la función de ayuda\n\n");
+    printf("\t exit \n\t\t Cierra el programa\n\n");
+    printf("\t workspace \n\t\t Muestra el espacio de trabajo\n\n");
+    printf("\t erase \n\t\t elimina el espacio de trabajo\n\n");
+    printf("\t table \n\t\t Muestra la tabla de símbolos\n\n");
 }

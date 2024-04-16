@@ -116,4 +116,10 @@ float getValue(char *lexema, hashTable tabla);
 */
 void printWorkingSpace(hashTable tabla);
 
+/**
+ * Elimina todos los elementos de la tabla de hash.
+ * @param tabla Tabla de hash.
+*/
+void deleteWorkingSpace(hashTable tabla); 
+
 #endif //TABLAHASH_H

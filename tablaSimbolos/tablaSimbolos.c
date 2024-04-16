@@ -12,7 +12,7 @@
 #include "../definiciones.h"
 #include "tablaSimbolos.h"
 
-#define TAM_INICIAL 64 // Metemos 64 espacios para minimizar el numero de redimensiones (puedes bajarlo para probar el resize)
+#define TAM_INICIAL 16 // Metemos 16 espacios para minimizar el numero de redimensiones (puedes bajarlo para probar el resize)
 
 hashTable tabla;
 
@@ -80,6 +80,12 @@ float obtenerValor(char *lexema){
     return getValue(lexema, tabla);  
 }
 
+// Imprime el espacio de trabajo
 void imprimirEspacioTrabajo(){
     printWorkingSpace(tabla);
+}
+
+// Elimina el espacio de trabajo
+void eliminarEspacioTrabajo(){
+    deleteWorkingSpace(tabla);
 }

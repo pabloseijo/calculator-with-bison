@@ -64,6 +64,8 @@ NOMBRE_ARCHIVO   {ID}(\.{letra}+)?
 "exit"			        {yyterminate();}
 "clear"                 {return CLEAR;}
 "workspace"             {return WORKSPACE;}
+"erase"                 {return DELETE_WORKSPACE;}
+"table"                 {return TABLA;}
 "load "                 {BEGIN(READ); return LOAD;}
 
 {espacio}       ;        /* Ignorar espacios y tabulaciones */

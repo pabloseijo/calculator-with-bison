@@ -82,4 +82,9 @@ float obtenerValor(char *lexema);
 */
 void imprimirEspacioTrabajo();
 
+/**
+ * @brief Función que elimina el espacio de trabajo
+*/
+void eliminarEspacioTrabajo();
+
 #endif	// TABLASIMBOLOS_H

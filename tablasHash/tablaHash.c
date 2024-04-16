@@ -287,6 +287,17 @@ void printWorkingSpace(hashTable tabla) {
 
     printf("\n--------------- x ---------------\n");
 }
+
+// Elimina todas las variables del espacio de trabajo.
+void deleteWorkingSpace(hashTable tabla) {
+    for (int index = 0; index < TABLE_SIZE; ++index) {
+        for (token *actual = tabla[index]; actual != NULL; actual = actual->next) {
+            if (actual->componente == VARIABLE) {
+                deleteToken(tabla, actual->lexema);
+            }
+        }
+    }
+}
 //------------------------------- Funciones privadas ------------------------------
 
 // Cacula el hash para un string dado.
