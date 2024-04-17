@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include "../definiciones.h"
 #include "tablaSimbolos.h"
+#include "math.h"
 
 #define TAM_INICIAL 16 // Metemos 16 espacios para minimizar el numero de redimensiones (puedes bajarlo para probar el resize)
 
@@ -19,27 +20,25 @@ hashTable tabla;
 // Inicializacion de la tabla de símbolos con las palabras reservadas del lenguaje
 int inicializarTabla(){
 
-    char *keywords[3];
-
-    keywords[0] = "pi";
-    keywords[1] = "e";
-    keywords[2] = "phi";
+    token keywords[] = {
+        {CONSTANTE, "pi", .valorUnion.valor = PI},
+        {CONSTANTE, "e", .valorUnion.valor = E},
+        {CONSTANTE, "phi",.valorUnion.valor = PHI},
+        {FUNCION, "cos", .valorUnion.funcion1Arg = cos},
+        {FUNCION, "sin", .valorUnion.funcion1Arg = sin},
+        {FUNCION, "pow", .valorUnion.funcion2Args = pow},
+    };
 
     if(initHashTable(&tabla, TAM_INICIAL) == 0){
         printf("Error al inicializar la tabla de hash\n");
         return 0;
     }
 
-    if(insertToken(&tabla, keywords[0], CONSTANTE, PI) == 0){
-        printf("Error al insertar el token %s en la tabla de hash\n", keywords[0]);
-    }
-
-    if(insertToken(&tabla, keywords[1], CONSTANTE, E) == 0){
-        printf("Error al insertar el token %s en la tabla de hash\n", keywords[1]);
-    }
-
-    if(insertToken(&tabla, keywords[2], CONSTANTE, PHI) == 0){
-        printf("Error al insertar el token %s en la tabla de hash\n", keywords[2]);
+    for(int i = 0; i < 5; i++){
+        if(insertToken(&tabla, keywords[i]) == 0){
+            printf("Error al insertar el token %s\n", keywords[i].lexema);
+            return 0;
+        }
     }
     
     return 1;
@@ -57,7 +56,8 @@ void imprimirTabla(){
 
 // Inserta el elemento en la tabla de símbolos llamando a la funcion de la tabla de hash
 int insertarElemento(token t, float valor){
-    return insertToken(&tabla, t.lexema, VARIABLE, valor);
+    t.valorUnion.valor = valor;
+    return insertToken(&tabla, t);
 }
 
 // Modifica el elemento en la tabla de símbolos llamando a la funcion de la tabla de hash

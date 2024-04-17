@@ -25,7 +25,8 @@ typedef struct token {
 
     union {
         float valor;  // Valor numérico asociado al token.
-        double (*funcion)(double); // Puntero a función asociado al token.
+        double (*funcion1Arg)(double); // Puntero a función asociado al token.
+        double (*funcion2Args)(double, double); // Puntero a función asociado al token.
     } valorUnion;
     
 } token;
@@ -69,12 +70,10 @@ void printTable(hashTable tabla);
  * Inserta un nuevo token en la tabla de hash.
  * Si el factor de carga supera 0.75, se redimensiona la tabla.
  * @param tabla Puntero a la tabla de hash.
- * @param lexema Lexema del token.
- * @param componente Componente léxico del token.
- * @param valor Valor asociado al token.
+ * @param tokenInsertado Token a insertar.
  * @return 1 si la inserción fue exitosa, 0 en caso contrario.
  */
-int insertToken(hashTable *tabla, char *lexema, int componente, float valor);
+int insertToken(hashTable *tabla, token tokenInsertado);
 
 /**
  * Busca un token en la tabla de hash por su lexema.

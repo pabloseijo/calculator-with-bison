@@ -150,11 +150,11 @@ void printTable(hashTable tabla) {
 }
 
 // Inserta un nuevo token, redimensionando la tabla si es necesario.
-int insertToken(hashTable *tabla, char *lexema, int componente, float valor){
+int insertToken(hashTable *tabla, token tokenInsertado){
 
     if (*tabla == NULL) return 0; 
 
-    int index = hash(lexema);
+    int index = hash(tokenInsertado.lexema);
 
     token *nuevoToken = (token *) malloc (sizeof(token));
 
@@ -162,9 +162,9 @@ int insertToken(hashTable *tabla, char *lexema, int componente, float valor){
 
     // Implementamos el encadenamiento en tablas hash (mas eficiente) debido a las restricciones
     // del sistema
-    nuevoToken->lexema = strdup(lexema); 
-    nuevoToken->componente = componente; 
-    nuevoToken->valorUnion.valor = valor;
+    nuevoToken->lexema = strdup(tokenInsertado.lexema); 
+    nuevoToken->componente = tokenInsertado.componente; 
+    nuevoToken->valorUnion = tokenInsertado.valorUnion;
     nuevoToken->next = NULL;
 
     // Si hay colisión, insertamos el nuevo token al principio de la lista enlazada
@@ -241,8 +241,14 @@ int modifyToken(hashTable *tabla, char * lexema, int componente, float valor){
     if(componenteAux == 0) return 0;
 
     else {
-        deleteToken(*tabla, lexema);
-        insertToken(tabla, lexema, componente, valor);
+        deleteToken(*tabla, lexema);    
+
+        token nuevoToken;
+        nuevoToken.lexema = lexema;
+        nuevoToken.componente = componente;
+        nuevoToken.valorUnion.valor = valor;
+
+        insertToken(tabla, nuevoToken);
         
         return 1;
     } 
@@ -307,7 +313,7 @@ unsigned int hash(char *string){
     int asciiEquivalent;
 
     //Los primos tienen una gran capacidad de dispersión
-    const unsigned int prime = 67;
+    const unsigned int prime = 17;
 
     // Utilizamos una operación XOR y una multiplicación por un número primo para mezclar los bits y mejorar la dispersión
     for(int i = 0; i < strlen(string); i++){
