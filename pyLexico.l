@@ -56,8 +56,6 @@ IGUALDAD         ==
 
 NOMBRE_ARCHIVO   {ID}(\.{letra}+)?
 
-%x READ
-
 %%
 
 "help"                  {return HELP;}
@@ -66,7 +64,7 @@ NOMBRE_ARCHIVO   {ID}(\.{letra}+)?
 "workspace"             {return WORKSPACE;}
 "erase"                 {return DELETE_WORKSPACE;}
 "table"                 {return TABLA;}
-"load "                 {BEGIN(READ); return LOAD;}
+"load"                  {return LOAD;}
 
 {espacio}       ;        /* Ignorar espacios y tabulaciones */
 {saltoLinea}    ;        return ((int) *yytext);
@@ -74,7 +72,7 @@ NOMBRE_ARCHIVO   {ID}(\.{letra}+)?
 {ID}                     {yylval.cadena = strdup(yytext); return IDENTIFICADOR;}
 {NUMERO}                 {yylval.numero = atof(yytext); return NUMERO;}
 
-<READ>{NOMBRE_ARCHIVO}   {yylval.cadena = strdup(yytext); BEGIN(INITIAL); return NOMBRE_ARCHIVO;}
+{NOMBRE_ARCHIVO}         {yylval.cadena = strdup(yytext);return NOMBRE_ARCHIVO;}
 
 {OPERADORES}             {return ((int) *yytext);}
 {SUMASIGNACION}          {return SUMA;}
@@ -96,15 +94,11 @@ void abrirArchivo(char *nombreArchivo) {
     FILE *archivo = fopen(nombreArchivo, "r");
     if (archivo == NULL) {
         ficheroNoEncontrado(nombreArchivo);
-        exit(EXIT_FAILURE);
+        yyin = stdin;
     }
     yyin = archivo;
 }
 
 void cerrarArchivo() {
-    if (yyin != NULL) {
-        fclose(yyin);
-        yyin = NULL;
-    }
-    yylex_destroy();
+    fclose(yyin);
 }

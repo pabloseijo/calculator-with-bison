@@ -53,7 +53,6 @@
 %type <numero> definicion
 %type <numero> operaciones
 %type <numero> booleano
-%type <numero> archivo
 
 %%
 
@@ -85,10 +84,10 @@ expresion:
     | DELETE_WORKSPACE {eliminarEspacioTrabajo();}
     | HELP {mostrarAyuda();}
     | TABLA {imprimirTabla();}
+    | LOAD NOMBRE_ARCHIVO { abrirArchivo($2); }
     | definicion
     | operaciones
     | booleano
-    | archivo
 ;
 
 definicion:
@@ -138,10 +137,6 @@ booleano:
 ;
 
 
-archivo:
-    LOAD NOMBRE_ARCHIVO { abrirArchivo($2); }
-
-
 %%
 
 void yyerror(char *mensaje) {
@@ -156,6 +151,6 @@ void mostrarAyuda() {
     printf("\n\t help \n\t\t Imprime la función de ayuda\n\n");
     printf("\t exit \n\t\t Cierra el programa\n\n");
     printf("\t workspace \n\t\t Muestra el espacio de trabajo\n\n");
-    printf("\t erase \n\t\t elimina el espacio de trabajo\n\n");
+    printf("\t erase \n\t\t Elimina el espacio de trabajo\n\n");
     printf("\t table \n\t\t Muestra la tabla de símbolos\n\n");
 }
