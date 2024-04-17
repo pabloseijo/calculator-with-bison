@@ -1548,7 +1548,7 @@ yyreduce:
         if((yyvsp[(3) - (3)].numero) != 0) {
             (yyval.numero) = (yyvsp[(1) - (3)].numero) / (yyvsp[(3) - (3)].numero);
         } else {
-            yyerror("ERROR: DIVISIÓN ENTRE CERO");
+            yyerror("división entre 0");
         }
     ;}
     break;

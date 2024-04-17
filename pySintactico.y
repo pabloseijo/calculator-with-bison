@@ -134,7 +134,7 @@ operaciones:
         if($3 != 0) {
             $$ = $1 / $3;
         } else {
-            yyerror("ERROR: DIVISIÓN ENTRE CERO");
+            yyerror("división entre 0");
         }
     }
 ;

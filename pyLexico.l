@@ -34,7 +34,7 @@ puntoComa        ;
 ID               {letra}({letra}|{digit})*
 
 /* Números */
-decinteger       {nonzerodigit}(_?{digit})*
+decinteger       {digit}(_?{digit})*
 digitpart        {digit}([_]?{digit})*
 fraction         "."{digitpart}
 exponent         [eE][+-]?{digitpart}
