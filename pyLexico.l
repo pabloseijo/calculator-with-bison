@@ -11,6 +11,8 @@
 
     void abrirArchivo(char *nombreArchivo);
     void cerrarArchivo();
+
+    int loading = 0;
 %}
 
 %option noyywrap
@@ -65,6 +67,7 @@ NOMBRE_ARCHIVO   {ID}(\.{letra}+)?
 "erase"                 {return DELETE_WORKSPACE;}
 "table"                 {return TABLA;}
 "load"                  {return LOAD;}
+"echo"                  {return ECHO;}
 
 {espacio}       ;        /* Ignorar espacios y tabulaciones */
 {saltoLinea}    ;        return ((int) *yytext);
@@ -91,6 +94,7 @@ NOMBRE_ARCHIVO   {ID}(\.{letra}+)?
 /* ----------------  FUNCIONES EN C ----------------  */
 
 void abrirArchivo(char *nombreArchivo) {
+    loading = 1;
     FILE *archivo = fopen(nombreArchivo, "r");
     if (archivo == NULL) {
         ficheroNoEncontrado(nombreArchivo);
@@ -100,5 +104,10 @@ void abrirArchivo(char *nombreArchivo) {
 }
 
 void cerrarArchivo() {
+    loading = 0;
     fclose(yyin);
+}
+
+int getLoading(){
+    return loading;
 }

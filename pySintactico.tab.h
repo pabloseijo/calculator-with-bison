@@ -49,16 +49,17 @@
      DELETE_WORKSPACE = 265,
      TABLA = 266,
      LOAD = 267,
-     SUMA = 268,
-     RESTA = 269,
-     MULTIPLICACION = 270,
-     DIVISION = 271,
-     MODULO = 272,
-     POTENCIA = 273,
-     MAYOR_IGUAL = 274,
-     MENOR_IGUAL = 275,
-     IGUAL_IGUAL = 276,
-     ASIGNAR = 277
+     ECHO = 268,
+     SUMA = 269,
+     RESTA = 270,
+     MULTIPLICACION = 271,
+     DIVISION = 272,
+     MODULO = 273,
+     POTENCIA = 274,
+     MAYOR_IGUAL = 275,
+     MENOR_IGUAL = 276,
+     IGUAL_IGUAL = 277,
+     ASIGNAR = 278
    };
 #endif
 /* Tokens.  */
@@ -72,29 +73,30 @@
 #define DELETE_WORKSPACE 265
 #define TABLA 266
 #define LOAD 267
-#define SUMA 268
-#define RESTA 269
-#define MULTIPLICACION 270
-#define DIVISION 271
-#define MODULO 272
-#define POTENCIA 273
-#define MAYOR_IGUAL 274
-#define MENOR_IGUAL 275
-#define IGUAL_IGUAL 276
-#define ASIGNAR 277
+#define ECHO 268
+#define SUMA 269
+#define RESTA 270
+#define MULTIPLICACION 271
+#define DIVISION 272
+#define MODULO 273
+#define POTENCIA 274
+#define MAYOR_IGUAL 275
+#define MENOR_IGUAL 276
+#define IGUAL_IGUAL 277
+#define ASIGNAR 278
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 18 "pySintactico.y"
+#line 22 "pySintactico.y"
 {
     char *cadena;
     float numero;
 }
 /* Line 1529 of yacc.c.  */
-#line 98 "pySintactico.tab.h"
+#line 100 "pySintactico.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

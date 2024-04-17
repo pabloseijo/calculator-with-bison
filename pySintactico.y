@@ -12,6 +12,10 @@
     extern int yylex();
     void yyerror(char *mensaje);
     void mostrarAyuda();
+    void activarEcho();
+    int devolverEcho();
+
+    int echoGlobal = 1;
 
 %}
 
@@ -33,6 +37,7 @@
 %token DELETE_WORKSPACE
 %token TABLA
 %token LOAD
+%token ECHO
 
 %token SUMA
 %token RESTA
@@ -61,10 +66,16 @@ entrada:
 ;
 
 linea:
-    '\n' { printf("calculadoraBison:~$ "); }
-    | expresion ';' '\n' { printf("> %f\ncalculadoraBison:~$ ", $1); }  
-    | booleano ';' '\n' { printf("\ncalculadoraBison:~$ "); }  
-    | expresion '\n' { printf("\ncalculadoraBison:~$ "); }  
+    '\n' { if(!getLoading()) printf("calculadoraBison:~$ "); }
+    | expresion ';' '\n' {
+            if(!getLoading()){
+                if(devolverEcho()) {printf("» %.2f\n", $1);} 
+                printf("calculadoraBison:~$ "); 
+            } else {
+                if(devolverEcho()) {printf("» %.2f\n", $1);} 
+            }
+        }  
+    | expresion '\n' { if(!getLoading()) printf("calculadoraBison:~$ "); }  
     | error { yyclearin; yyerrok; }
 ;
 
@@ -85,6 +96,7 @@ expresion:
     | HELP {mostrarAyuda();}
     | TABLA {imprimirTabla();}
     | LOAD NOMBRE_ARCHIVO { abrirArchivo($2); }
+    | ECHO {activarEcho();}
     | definicion
     | operaciones
     | booleano
@@ -139,6 +151,15 @@ booleano:
 
 %%
 
+void activarEcho(){
+    echoGlobal = !echoGlobal;
+    printf("visualización de variables (%d)\n", echoGlobal);
+}
+
+int devolverEcho(){
+    return echoGlobal;
+}
+
 void yyerror(char *mensaje) {
     fprintf(stderr, "Error: %s\n", mensaje);
 }
@@ -153,4 +174,5 @@ void mostrarAyuda() {
     printf("\t workspace \n\t\t Muestra el espacio de trabajo\n\n");
     printf("\t erase \n\t\t Elimina el espacio de trabajo\n\n");
     printf("\t table \n\t\t Muestra la tabla de símbolos\n\n");
+    printf("\t echo \n\t\t Activa la visualización de las operaciones\n\n");
 }

@@ -3,3 +3,4 @@
 
 void abrirArchivo(char *nombreArchivo);
 void cerrarArchivo();
+int getLoading();

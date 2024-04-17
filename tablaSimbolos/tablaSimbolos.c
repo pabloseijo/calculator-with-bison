@@ -89,3 +89,4 @@ void imprimirEspacioTrabajo(){
 void eliminarEspacioTrabajo(){
     deleteWorkingSpace(tabla);
 }
+
