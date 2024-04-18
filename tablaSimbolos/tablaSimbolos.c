@@ -34,7 +34,7 @@ int inicializarTabla(){
         return 0;
     }
 
-    for(int i = 0; i < 5; i++){
+    for(int i = 0; i < sizeof(keywords)/sizeof(keywords[0]); i++){
         if(insertToken(&tabla, keywords[i]) == 0){
             printf("Error al insertar el token %s\n", keywords[i].lexema);
             return 0;
@@ -90,3 +90,6 @@ void eliminarEspacioTrabajo(){
     deleteWorkingSpace(tabla);
 }
 
+token obtenerToken(char *lexema){
+    return getToken(tabla, lexema);
+}

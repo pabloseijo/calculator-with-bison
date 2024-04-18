@@ -90,7 +90,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 22 "pySintactico.y"
+#line 24 "pySintactico.y"
 {
     char *cadena;
     float numero;

@@ -162,10 +162,7 @@ int insertToken(hashTable *tabla, token tokenInsertado){
 
     // Implementamos el encadenamiento en tablas hash (mas eficiente) debido a las restricciones
     // del sistema
-    nuevoToken->lexema = strdup(tokenInsertado.lexema); 
-    nuevoToken->componente = tokenInsertado.componente; 
-    nuevoToken->valorUnion = tokenInsertado.valorUnion;
-    nuevoToken->next = NULL;
+    *nuevoToken = tokenInsertado;
 
     // Si hay colisión, insertamos el nuevo token al principio de la lista enlazada
     if ((*tabla)[index] == NULL) {
@@ -303,6 +300,24 @@ void deleteWorkingSpace(hashTable tabla) {
             }
         }
     }
+}
+
+// Busca un token por su lexema y devuelve el token si existe.
+token getToken(hashTable tabla, char *lexema){
+
+    int index = hash(lexema);
+
+    token *actual = tabla[index];
+
+    // Recorremos la lista enlazada en la posición de la tabla
+    while (actual != NULL) {
+        if (strcmp(actual->lexema, lexema) == 0) {
+            return *actual;
+        }
+        actual = actual->next;
+    }
+
+    return *actual;
 }
 //------------------------------- Funciones privadas ------------------------------
 

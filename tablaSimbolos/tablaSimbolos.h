@@ -87,4 +87,11 @@ void imprimirEspacioTrabajo();
 */
 void eliminarEspacioTrabajo();
 
+/**
+ * @brief Función que obtiene el token asociado a un lexema en la tabla de hash
+ * @param lexema: lexema del token a buscar
+ * @return token asociado al lexema si se encuentra, NULL si no se encuentra
+*/
+token obtenerToken(char *lexema);
+
 #endif	// TABLASIMBOLOS_H

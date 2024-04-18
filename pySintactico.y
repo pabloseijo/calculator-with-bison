@@ -17,6 +17,8 @@
 
     int echoGlobal = 1;
 
+    token componente;
+
 %}
 
 %union {
@@ -58,6 +60,7 @@
 %type <numero> definicion
 %type <numero> operaciones
 %type <numero> booleano
+%type <numero> funciones
 
 %%
 
@@ -100,6 +103,7 @@ expresion:
     | definicion
     | operaciones
     | booleano
+    | funciones
 ;
 
 definicion:
@@ -123,7 +127,7 @@ definicion:
                 $$ = $3;
             }
         }
-    }
+    } 
 ;
 
 operaciones:
@@ -139,6 +143,31 @@ operaciones:
     }
 ;
 
+funciones:	
+        IDENTIFICADOR '(' expresion ')' {
+            if(buscarComponente($1) == FUNCION) {
+                componente = obtenerToken($1);
+                if(componente.valorUnion.funcion1Arg != NULL){
+                     printf("%.2lf\n",(*(componente.valorUnion.funcion1Arg))((double)$3));
+                } else {
+                    yyerror("Argumentos de la funcion incorrectos");
+                }
+            } 
+            else {yyerror("La funcion no existe");}
+        
+        }
+        | IDENTIFICADOR '(' expresion ',' expresion ')' {
+            if(buscarComponente($1) == FUNCION) {
+                componente = obtenerToken($1);
+                if (componente.valorUnion.funcion2Args != NULL) {
+                    printf("%.2lf\n",(*(componente.valorUnion.funcion2Args))((double)$3,(double)$5));
+                } else {
+                    yyerror("Argumentos de la funcion incorrectos");
+                }
+            } 
+            else {yyerror("La funcion no existe");}
+        }
+;
 
 booleano:	
         expresion '>' expresion {$1 > $3 ? printf("TRUE\n") : printf("FALSE\n");}

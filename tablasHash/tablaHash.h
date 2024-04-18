@@ -121,4 +121,12 @@ void printWorkingSpace(hashTable tabla);
 */
 void deleteWorkingSpace(hashTable tabla); 
 
+/**
+ * Obtiene el token asociado a un lexema en la tabla de hash.
+ * @param lexema Lexema del token a buscar.
+ * @param tabla Tabla de hash.
+ * @return Token asociado al lexema si se encuentra, NULL si no se encuentra.
+*/
+token getToken(hashTable tabla, char *lexema);
+
 #endif //TABLAHASH_H

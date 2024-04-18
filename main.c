@@ -10,10 +10,7 @@
 
 int main(int argc,char *argv[]){
 
-
-    hashTable tabla;
-
-    inicializarTabla(&tabla);
+    inicializarTabla();
 
     //imprimirTabla(tabla);
     
@@ -23,7 +20,7 @@ int main(int argc,char *argv[]){
 
     //imprimirTabla(tabla);
 
-    destruirTabla(tabla);
+    destruirTabla();
 
     printf("\n");
 }
