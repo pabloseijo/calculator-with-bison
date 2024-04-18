@@ -27,6 +27,7 @@ int inicializarTabla(){
         {FUNCION, "cos", .valorUnion.funcion1Arg = cos},
         {FUNCION, "sin", .valorUnion.funcion1Arg = sin},
         {FUNCION, "pow", .valorUnion.funcion2Args = pow},
+        {FUNCION, "fmod", .valorUnion.funcion2Args = fmod},
     };
 
     if(initHashTable(&tabla, TAM_INICIAL) == 0){

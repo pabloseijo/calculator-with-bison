@@ -162,7 +162,10 @@ int insertToken(hashTable *tabla, token tokenInsertado){
 
     // Implementamos el encadenamiento en tablas hash (mas eficiente) debido a las restricciones
     // del sistema
-    *nuevoToken = tokenInsertado;
+    nuevoToken->lexema = strdup(tokenInsertado.lexema); 
+    nuevoToken->componente = tokenInsertado.componente; 
+    nuevoToken->valorUnion = tokenInsertado.valorUnion;
+    nuevoToken->next = NULL;
 
     // Si hay colisión, insertamos el nuevo token al principio de la lista enlazada
     if ((*tabla)[index] == NULL) {

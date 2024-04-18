@@ -167,6 +167,8 @@ funciones:
             } 
             else {yyerror("La funcion no existe");}
         }
+        | expresion '^' expresion ';' { printf("%.2lf\n",pow($1, $3));}
+		| expresion '%' expresion ';' { printf("%.2lf\n",fmod($1, $3));}
 ;
 
 booleano:	
