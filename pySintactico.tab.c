@@ -135,7 +135,7 @@
     void activarEcho();
     int devolverEcho();
 
-    int echoGlobal = 0;
+    int echoGlobal = 1;
 
     token componente;
 

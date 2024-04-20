@@ -105,3 +105,4 @@ typedef union YYSTYPE
 
 extern YYSTYPE yylval;
 
+int yyparse (void);
