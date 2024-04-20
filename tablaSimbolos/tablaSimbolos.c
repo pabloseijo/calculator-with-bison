@@ -12,6 +12,8 @@
 #include "../definiciones.h"
 #include "tablaSimbolos.h"
 #include "math.h"
+#include "../pySintactico.tab.h"
+#include "../lex.yy.h"
 
 #define TAM_INICIAL 16 // Metemos 16 espacios para minimizar el numero de redimensiones (puedes bajarlo para probar el resize)
 
@@ -23,12 +25,14 @@ int inicializarTabla(){
     token keywords[] = {
         {CONSTANTE, "pi", .valorUnion.valor = PI},
         {CONSTANTE, "e", .valorUnion.valor = E},
-        {CONSTANTE, "phi",.valorUnion.valor = PHI},
+        {CONSTANTE, "phi", .valorUnion.valor = PHI},
         {FUNCION, "cos", .valorUnion.funcion1Arg = cos},
         {FUNCION, "sin", .valorUnion.funcion1Arg = sin},
+        {FUNCION, "log", .valorUnion.funcion1Arg = log},
         {FUNCION, "pow", .valorUnion.funcion2Args = pow},
         {FUNCION, "fmod", .valorUnion.funcion2Args = fmod},
     };
+
 
     if(initHashTable(&tabla, TAM_INICIAL) == 0){
         printf("Error al inicializar la tabla de hash\n");

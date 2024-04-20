@@ -17,7 +17,19 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-// Estructura para almacenar componentes léxicos.
+/**
+ * @brief Estructura que representa un token en la tabla de hash.
+ * @param componente Código numérico del componente léxico.
+ * @param lexema Representación textual del token.
+ * @param next Puntero al siguiente token en caso de colisión.
+ * 
+ * @param valorUnion Union que permite almacenar diferentes tipos de valores
+ * 
+ * @param valorUnion.valor Valor numérico asociado al token.
+ * @param valorUnion.comando Puntero a función asociado al token.
+ * @param valorUnion.funcion1Arg Puntero a función asociado al token con un argumento.
+ * @param valorUnion.uncion2Args Puntero a función asociado al token con dos argumentos.
+*/
 typedef struct token {
     int componente;  // Código numérico del componente léxico.
     char *lexema;    // Representación textual del token.
@@ -25,6 +37,7 @@ typedef struct token {
 
     union {
         float valor;  // Valor numérico asociado al token.
+        double (*comando) (); // Puntero a función asociado al token.
         double (*funcion1Arg)(double); // Puntero a función asociado al token.
         double (*funcion2Args)(double, double); // Puntero a función asociado al token.
     } valorUnion;

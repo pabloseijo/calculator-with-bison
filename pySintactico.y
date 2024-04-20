@@ -10,6 +10,7 @@
     #include "lex.yy.h"
 
     extern int yylex();
+
     void yyerror(char *mensaje);
     void mostrarAyuda();
     void activarEcho();
@@ -18,7 +19,6 @@
     int echoGlobal = 1;
 
     token componente;
-
 %}
 
 %union {
@@ -55,6 +55,7 @@
 %left '+' '-'
 %left '*' '/'
 %left '%' '^'
+%nonassoc MAYOR_IGUAL MENOR_IGUAL IGUAL_IGUAL '>' '<'
 
 %type <numero> expresion
 %type <numero> definicion
@@ -82,10 +83,9 @@ linea:
     | error { yyclearin; yyerrok; }
 ;
 
-
 expresion:
     NUMERO { $$ = $1; }
-    | '-' expresion { $$ = -$2; }
+    | '-' expresion %prec '-' { $$ = -$2; }
     | IDENTIFICADOR {
         if (buscarComponente($1) != 0) {
             $$ = obtenerValor($1);
@@ -94,12 +94,12 @@ expresion:
         }
     }
     | '(' expresion ')' { $$ = $2; }
-    | WORKSPACE {imprimirEspacioTrabajo();}
-    | DELETE_WORKSPACE {eliminarEspacioTrabajo();}
-    | HELP {mostrarAyuda();}
-    | TABLA {imprimirTabla();}
+    | WORKSPACE { imprimirEspacioTrabajo(); }
+    | DELETE_WORKSPACE { eliminarEspacioTrabajo(); }
+    | HELP { mostrarAyuda(); }
+    | TABLA { imprimirTabla(); }
     | LOAD NOMBRE_ARCHIVO { abrirArchivo($2); }
-    | ECHO {activarEcho();}
+    | ECHO { activarEcho(); }
     | definicion
     | operaciones
     | booleano
@@ -119,7 +119,9 @@ definicion:
                 $$ = $3;
             }
         } else if(buscarComponente($1) == CONSTANTE) {
-            yyerror("ERROR: LAS CTES NO SE PUEDEN REASIGNAR");
+            yyerror("Las constantes no se pueden reasignar");
+        } else if(buscarComponente($1) == FUNCION) {
+            yyerror("Las funciones no se pueden reasignar");
         } else {
             if (!modificarElemento(t, $3)) {
                 yyerror("Error al modificar el elemento");
@@ -131,9 +133,9 @@ definicion:
 ;
 
 operaciones:
-    expresion '+' expresion { $$ = $1 + $3; }  
-    | expresion '-' expresion { $$ = $1 - $3; }  
-    | expresion '*' expresion { $$ = $1 * $3; } 
+    expresion '+' expresion { $$ = $1 + $3; }
+    | expresion '-' expresion { $$ = $1 - $3; }
+    | expresion '*' expresion { $$ = $1 * $3; }
     | expresion '/' expresion {                
         if($3 != 0) {
             $$ = $1 / $3;
@@ -144,41 +146,39 @@ operaciones:
 ;
 
 funciones:	
-        IDENTIFICADOR '(' expresion ')' {
-            if(buscarComponente($1) == FUNCION) {
-                componente = obtenerToken($1);
-                if(componente.valorUnion.funcion1Arg != NULL){
-                     printf("%.2lf\n",(*(componente.valorUnion.funcion1Arg))((double)$3));
-                } else {
-                    yyerror("Argumentos de la funcion incorrectos");
-                }
-            } 
-            else {yyerror("La funcion no existe");}
-        
-        }
-        | IDENTIFICADOR '(' expresion ',' expresion ')' {
-            if(buscarComponente($1) == FUNCION) {
-                componente = obtenerToken($1);
-                if (componente.valorUnion.funcion2Args != NULL) {
-                    printf("%.2lf\n",(*(componente.valorUnion.funcion2Args))((double)$3,(double)$5));
-                } else {
-                    yyerror("Argumentos de la funcion incorrectos");
-                }
-            } 
-            else {yyerror("La funcion no existe");}
-        }
-        | expresion '^' expresion ';' { printf("%.2lf\n",pow($1, $3));}
-		| expresion '%' expresion ';' { printf("%.2lf\n",fmod($1, $3));}
+    IDENTIFICADOR '(' expresion ')' {
+        if(buscarComponente($1) == FUNCION) {
+            componente = obtenerToken($1);
+            if(componente.valorUnion.funcion1Arg != NULL){
+                 $$ = (*(componente.valorUnion.funcion1Arg))((double)$3);
+            } else {
+                yyerror("Argumentos de la función incorrectos");
+            }
+        } 
+        else {yyerror("La función no existe");}
+    }
+    | IDENTIFICADOR '(' expresion ',' expresion ')' {
+        if(buscarComponente($1) == FUNCION) {
+            componente = obtenerToken($1);
+            if (componente.valorUnion.funcion2Args != NULL) {
+                $$ = (*(componente.valorUnion.funcion2Args))((double)$3,(double)$5);
+            } else {
+                yyerror("Argumentos de la función incorrectos");
+            }
+        } 
+        else {yyerror("La función no existe");}
+    }
+    | expresion '^' expresion { $$ = pow($1, $3); }
+    | expresion '%' expresion { $$ = fmod($1, $3); }
 ;
 
 booleano:	
-        expresion '>' expresion {$1 > $3 ? printf("TRUE\n") : printf("FALSE\n");}
-		| expresion '<' expresion {$1 < $3 ? printf("TRUE\n") : printf("FALSE\n");}
-		| expresion MAYOR_IGUAL expresion {$1 >= $3 ? printf("TRUE\n") : printf("FALSE\n");}
-		| expresion MENOR_IGUAL expresion {$1 <= $3 ? printf("TRUE\n") : printf("FALSE\n");}
-		| expresion IGUAL_IGUAL expresion {$1 == $3 ? printf("TRUE\n") : printf("FALSE\n");}
+    expresion '>' expresion { $$ = $1 > $3; }
+    | expresion '<' expresion { $$ = $1 < $3; }
+    | expresion MAYOR_IGUAL expresion { $$ = $1 >= $3; }
+    | expresion MENOR_IGUAL expresion { $$ = $1 <= $3; }
+    | expresion IGUAL_IGUAL expresion { $$ = $1 == $3; }
 ;
-
 
 %%
 
@@ -203,7 +203,7 @@ void mostrarAyuda() {
     printf("\n\t help \n\t\t Imprime la función de ayuda\n\n");
     printf("\t exit \n\t\t Cierra el programa\n\n");
     printf("\t workspace \n\t\t Muestra el espacio de trabajo\n\n");
-    printf("\t erase \n\t\t Elimina el espacio de trabajo\n\n");
+    printf("\t clear \n\t\t Elimina el espacio de trabajo\n\n");
     printf("\t table \n\t\t Muestra la tabla de símbolos\n\n");
     printf("\t echo \n\t\t Activa la visualización de las operaciones\n\n");
 }
