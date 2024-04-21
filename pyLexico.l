@@ -61,12 +61,12 @@ NOMBRE_ARCHIVO   {ID}(\.{letra}+)?
 %%
 
 "help"                  {return HELP;}
-"exit"			        {yyterminate();}
+"exit"			        {yylex_destroy(); yyterminate();}
 "workspace"             {return WORKSPACE;}
 "clear"                 {return DELETE_WORKSPACE;}
 "table"                 {return TABLA;}
 "load"                  {return LOAD;}
-"echo"                  {return ECHO;}
+"echo"                  {return CMD_ECHO;}
 
 {espacio}       ;        /* Ignorar espacios y tabulaciones */
 {saltoLinea}    ;        return ((int) *yytext);
@@ -103,9 +103,13 @@ void abrirArchivo(char *nombreArchivo) {
 }
 
 void cerrarArchivo() {
+    if (yyin != stdin) {
+        fclose(yyin);
+        yyin = stdin;
+    }
     loading = 0;
-    fclose(yyin);
 }
+
 
 int getLoading(){
     return loading;

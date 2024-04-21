@@ -11,14 +11,10 @@
 int main(int argc,char *argv[]){
 
     inicializarTabla();
-
-    //imprimirTabla(tabla);
     
     printf("calculadoraBison:~$ ");
 
     yyparse();
-
-    //imprimirTabla(tabla);
 
     destruirTabla();
 

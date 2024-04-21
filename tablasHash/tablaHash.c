@@ -62,6 +62,7 @@ int deleteHashTable(hashTable tabla){
                 token *siguiente = actual->next;
 
                 free(actual->lexema); // Libera el lexema del token
+                actual->lexema = NULL;
                 free(actual); // Libera el token
 
                 actual = siguiente;

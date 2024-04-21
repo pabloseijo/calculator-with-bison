@@ -1,5 +1,6 @@
 CC = gcc
 CFLAGS = -Wall
+LDFLAGS = -lm
 OBJ_DIR = obj
 BIN_DIR = bin
 
@@ -12,7 +13,7 @@ EXECUTABLE = $(BIN_DIR)/miCompilador
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS) | $(BIN_DIR)
-	$(CC) $^ -o $@
+	$(CC) $^ -o $@ $(LDFLAGS)
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	mkdir -p $(@D)

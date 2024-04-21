@@ -39,7 +39,7 @@
 %token DELETE_WORKSPACE
 %token TABLA
 %token LOAD
-%token ECHO
+%token CMD_ECHO
 
 %token SUMA
 %token RESTA
@@ -79,7 +79,7 @@ linea:
                 if(devolverEcho()) {printf("» %.2f\n", $1);} 
             }
         }  
-    | expresion '\n' { if(!getLoading()) printf("calculadoraBison:~$ "); }  
+    | expresion '\n' {if(!getLoading()) printf("calculadoraBison:~$ "); }  
     | error { yyclearin; yyerrok; }
 ;
 
@@ -89,8 +89,10 @@ expresion:
     | IDENTIFICADOR {
         if (buscarComponente($1) != 0) {
             $$ = obtenerValor($1);
+            free($1); // Considerar mover esta liberación a después de su último uso
         } else {
             yyerror("Variable no declarada");
+            free($1); // Asegurar liberación en todas las ramas
         }
     }
     | '(' expresion ')' { $$ = $2; }
@@ -98,13 +100,17 @@ expresion:
     | DELETE_WORKSPACE { eliminarEspacioTrabajo(); }
     | HELP { mostrarAyuda(); }
     | TABLA { imprimirTabla(); }
-    | LOAD NOMBRE_ARCHIVO { abrirArchivo($2); }
-    | ECHO { activarEcho(); }
+    | LOAD NOMBRE_ARCHIVO {
+        abrirArchivo($2);
+        free($2); // Asegurarse que el archivo no se usa después
+    }
+    | CMD_ECHO { activarEcho(); }
     | definicion
     | operaciones
     | booleano
     | funciones
 ;
+
 
 definicion:
     IDENTIFICADOR '=' expresion {
@@ -129,6 +135,7 @@ definicion:
                 $$ = $3;
             }
         }
+        free($1);
     } 
 ;
 
@@ -156,6 +163,7 @@ funciones:
             }
         } 
         else {yyerror("La función no existe");}
+        free($1); 
     }
     | IDENTIFICADOR '(' expresion ',' expresion ')' {
         if(buscarComponente($1) == FUNCION) {
@@ -166,7 +174,8 @@ funciones:
                 yyerror("Argumentos de la función incorrectos");
             }
         } 
-        else {yyerror("La función no existe");}
+        else {yyerror("La función no existe"); printf("\n");}
+        free($1); 
     }
     | expresion '^' expresion { $$ = pow($1, $3); }
     | expresion '%' expresion { $$ = fmod($1, $3); }
