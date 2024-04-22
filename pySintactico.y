@@ -186,11 +186,16 @@ funciones:
 ;
 
 booleano:	
-    expresion '>' expresion { $$ = $1 > $3; }
-    | expresion '<' expresion { $$ = $1 < $3; }
-    | expresion MAYOR_IGUAL expresion { $$ = $1 >= $3; }
-    | expresion MENOR_IGUAL expresion { $$ = $1 <= $3; }
-    | expresion IGUAL_IGUAL expresion { $$ = $1 == $3; }
+    expresion '>' expresion ';' { if($1 > $3) printf("true\n"); else printf("false\n");}
+    | expresion '>' expresion { if($1 > $3) printf("true\n"); else printf("false\n");}
+    | expresion '<' expresion ';' { if($1 < $3) printf("true\n"); else printf("false\n");}
+    | expresion '<' expresion  { if($1 < $3) printf("true\n"); else printf("false\n");}
+    | expresion MAYOR_IGUAL expresion ';' { if($1 >= $3) printf("true\n"); else printf("false\n"); }
+    | expresion MAYOR_IGUAL expresion { if($1 >= $3) printf("true\n"); else printf("false\n"); }
+    | expresion MENOR_IGUAL expresion ';' { if($1 <= $3) printf("true\n"); else printf("false\n"); }
+    | expresion MENOR_IGUAL expresion { if($1 <= $3) printf("true\n"); else printf("false\n"); }
+    | expresion IGUAL_IGUAL expresion ';' { if($1 == $3) printf("true\n"); else printf("false\n"); }
+    | expresion IGUAL_IGUAL expresion { if($1 == $3) printf("true\n"); else printf("false\n"); }
 ;
 
 
