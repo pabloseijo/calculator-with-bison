@@ -93,13 +93,119 @@ Utiliza make clean para limpiar objetos compilados y make cleanall para eliminar
 
 ## Comandos Disponibles
 
-- `help`: Muestra ayuda del programa.
-- `table`: Visualiza la tabla de símbolos global.
-- `workspace`: Muestra las variables y sus valores hasta el momento.
-- `clear`: Elimina todas las variables del workspace.
-- `echo`: Activa/Desactiva el mostrar las variables.
-- `load file`: Carga y ejecuta operaciones de un archivo.
-- `exit`: Sale del programa.
+#### `help`
+Muestra ayuda del programa.
+
+```
+calculadoraBison:~$ help
+
+Usage: [operation] | [command]
+
+Commands: 
+
+         help 
+                 Imprime la función de ayuda
+
+         exit 
+                 Cierra el programa
+
+         workspace 
+                 Muestra el espacio de trabajo
+
+         clear 
+                 Elimina el espacio de trabajo
+
+         table 
+                 Muestra la tabla de símbolos
+
+         echo 
+                 Activa la visualización de las operaciones
+```
+
+#### `table`
+Visualiza la tabla de símbolos global.
+```
+calculadoraBison:~$ table
+
+START
+0       ( fmod | 302 ) -> 
+1       ( phi | 300 ) -> 
+2       ---
+3       ---
+4       ( log | 302 ) -> ( sin | 302 ) -> 
+5       ( e | 300 ) -> 
+6       ---
+7       ---
+8       ( pow | 302 ) -> 
+9       ( pi | 300 ) -> 
+10      ---
+11      ---
+12      ---
+13      ---
+14      ---
+15      ( cos | 302 ) -> 
+END
+```
+
+#### `workspace`
+Muestra las variables y sus valores hasta el momento.
+```
+calculadoraBison:~$ workspace
+
+------ Espacio de trabajo ------
+
+a = 1.00
+b = 5.00
+s = 23.35
+
+--------------- x ---------------
+```
+
+#### `clear`
+Elimina todas las variables del workspace.
+```
+calculadoraBison:~$ clear
+calculadoraBison:~$ workspace
+
+------ Espacio de trabajo ------
+
+No hay variables definidas.
+
+--------------- x ---------------
+```
+
+### `echo`
+Activa/Desactiva el mostrar las variables.
+```
+calculadoraBison:~$ echo
+visualización de variables (0)
+```
+
+### `load file`
+Carga y ejecuta operaciones de un archivo.
+
+```
+calculadoraBison:~$ load archivo.txt
+» 1.00
+» 5.00
+» 6.00
+» 23.35
+
+------ Espacio de trabajo ------
+
+a = 1.00
+b = 5.00
+s = 23.35
+
+--------------- x ---------------
+```
+
+#### `exit`
+Sale del programa.
+
+```
+calculadoraBison:~$ exit
+```
 
 ## Uso 
 
