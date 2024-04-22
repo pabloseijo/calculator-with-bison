@@ -8,7 +8,7 @@ BIN_DIR = bin
 SOURCES = $(wildcard *.c) $(wildcard */*.c)
 # Convierte los archivos .c encontrados a rutas .o en el directorio obj.
 OBJECTS = $(SOURCES:%.c=$(OBJ_DIR)/%.o)
-EXECUTABLE = $(BIN_DIR)/miCompilador
+EXECUTABLE = $(BIN_DIR)/miInterprete
 
 all: $(EXECUTABLE)
 
