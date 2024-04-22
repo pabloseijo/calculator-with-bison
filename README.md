@@ -1,5 +1,20 @@
 # Intérprete matemático
 
+![C](https://img.shields.io/badge/language-C-blue.svg)
+![GCC](https://img.shields.io/badge/compiler-GCC-pink.svg)
+![Flex](https://img.shields.io/badge/lexer-Flex-purple.svg)
+![Bison](https://img.shields.io/badge/parser-Bison-cyan.svg)
+
+## Índice
+
+- [Descripción](#descripción)
+- [Entorno de Desarrollo](#entorno-de-desarrollo)
+- [Archivos del Proyecto](#archivos-del-proyecto)
+- [Compilación y Ejecución](#compilación-y-ejecución)
+- [Comandos Disponibles](#comandos-disponibles)
+- [Uso](#uso)
+- [Mensaje Final](#mensaje-final)
+
 ## Descripción
 
 Este proyecto implementa un intérprete de calculadora matemática utilizando Bison y Flex, que permite realizar tanto operaciones básicas como funciones matemáticas más complejas. Utiliza una tabla de símbolos implementada mediante una tabla de hash para optimizar la búsqueda y almacenamiento de variables y funciones.
@@ -8,17 +23,57 @@ Este proyecto implementa un intérprete de calculadora matemática utilizando Bi
 
 - **IDE**: Visual Studio Code
 - **Lenguaje**: C
-- **OS**: MacOs ventura y Ubuntu 22.04
+- **OS**: MacOs Ventura y Ubuntu 22.04
 
 ## Archivos del Proyecto
 
-- **main.c**: Punto de entrada del intérprete.
-- **tablaSimbolos.h**, **tablaSimbolos.c**: Definiciones e implementación de la tabla de símbolos.
-- **tablaHash.h**, **tablaHash.c**: Definiciones e implementación de la tabla de hash.
-- **analizadorSintactico.y**: Gramática y acciones sintácticas implementadas con Bison.
-- **analizadorLexico.l**: Reglas léxicas implementadas con Flex.
-- **gestionErrores.h**, **gestionErrores.c**: Manejo de errores durante la ejecución.
-- **definiciones.h**: Constantes y tipos utilizados en el proyecto.
+### `main.c`
+- **Descripción**: Punto de entrada del intérprete. Este archivo contiene la función principal `main`, que inicializa la tabla de símbolos, maneja la interacción del usuario y controla el flujo general del programa. Es responsable de invocar el analizador sintáctico para procesar las entradas del usuario y mostrar resultados.
+- **Funcionalidades clave**:
+  - Inicialización y destrucción de la tabla de símbolos.
+  - Invocación del parser y del lexer.
+  - Gestión de la interfaz de línea de comando.
+
+#### `tablaSimbolos.h`, `tablaSimbolos.c`
+- **Descripción**: Estos archivos definen e implementan las operaciones de la tabla de símbolos. La tabla de símbolos almacena información sobre variables, constantes y funciones, permitiendo al intérprete recordar valores y comportamientos definidos.
+- **Funcionalidades clave**:
+  - Inserción y búsqueda de elementos.
+  - Modificación y eliminación de variables.
+  - Soporte para manejo de diferentes tipos de datos a través de uniones.
+
+#### `tablaHash.h`, `tablaHash.c`
+- **Descripción**: Implementan la tabla de hash utilizada por la tabla de símbolos para almacenar eficientemente los identificadores y sus asociaciones. Utiliza técnicas de hashing para acelerar las búsquedas y actualizaciones.
+- **Funcionalidades clave**:
+  - Funciones hash personalizadas para distribución uniforme.
+  - Manejo de colisiones mediante listas enlazadas.
+  - Redimensionamiento dinámico para mantener la eficiencia a medida que crece el número de elementos.
+
+#### `analizadorSintactico.y`
+- **Descripción**: Define la gramática del lenguaje y las acciones asociadas utilizando Bison. Este archivo contiene las reglas sintácticas que dictan la estructura del lenguaje y cómo las entradas son convertidas en operaciones ejecutables.
+- **Funcionalidades clave**:
+  - Definición de operadores, prioridades y asociatividades.
+  - Implementación de acciones que se ejecutan al reconocer patrones en la entrada.
+
+#### `analizadorLexico.l`
+- **Descripción**: Implementado con Flex, este archivo contiene las reglas léxicas que el lexer utiliza para descomponer la entrada de texto en tokens que el parser puede entender.
+- **Funcionalidades clave**:
+  - Identificación de tipos de tokens como números, identificadores y símbolos operativos.
+  - Manejo de espacios, comentarios y líneas nuevas para adecuar la entrada para el parsing.
+
+#### `gestionErrores.h`, `gestionErrores.c`
+- **Descripción**: Proporcionan mecanismos para reportar y manejar errores durante el análisis léxico y sintáctico. Estos archivos son cruciales para una buena experiencia de usuario al proporcionar mensajes de error claros y acciones de recuperación.
+- **Funcionalidades clave**:
+  - Definición de diferentes tipos de errores.
+  - Funciones para mostrar mensajes de error y manejar errores no críticos.
+
+#### `definiciones.h`
+- **Descripción**: Contiene definiciones de constantes y estructuras de datos usadas a través del proyecto. Este archivo centraliza elementos como tipos de tokens y valores especiales, facilitando la modificación y mantenimiento del código.
+- **Funcionalidades clave**:
+  - Definiciones de constantes matemáticas y de sistema.
+  - Estructuras para manejo de tokens y errores.
+
+Cada archivo está diseñado para trabajar en conjunto, proporcionando una base robusta para el intérprete que es fácil de entender.
+
 
 ## Compilación y Ejecución
 
@@ -49,7 +104,10 @@ Utiliza make clean para limpiar objetos compilados y make cleanall para eliminar
 
 ## Uso 
 
-Tenemos que tener en cuenta que para que nos muestre el resultado por pantalla debemos poner ';' al final de cada línea, por ejemplo:
+### Ejecución Básica
+
+Para ejecutar operaciones matemáticas básicas, es necesario terminar cada comando con un punto y coma (`;`) para que el intérprete procese la entrada. Esto aplica incluso si el `echo` está activado, lo que significa que el intérprete muestra resultados de operaciones a medida que son procesadas:
+
 
 ```
 calculadoraBison:~$ 3+3
@@ -59,7 +117,30 @@ calculadoraBison:~$ 3+3;
 
 Esto funciona así aunque este el echo activado (si está desactivado no se mostrará en ningún caso).
 
-En el caso de las funciones no es necesario poner ';':
+### Operaciones Aritméticas Básicas y Especiales
+
+El intérprete soporta varias operaciones matemáticas básicas y especiales, incluyendo:
+
+- **Suma** (`+`)
+- **Resta** (`-`)
+- **Multiplicación** (`*`)
+- **División** (`/`)
+- **Exponente** (`^`): Para realizar operaciones de potencia.
+- **Módulo** (`%`): Para obtener el residuo de una división.
+
+### Funciones Matemáticas
+
+Además de las operaciones aritméticas básicas, el intérprete incluye funciones matemáticas predefinidas:
+
+- `cos(x)`: Coseno de un ángulo x.
+- `sin(x)`: Seno de un ángulo x.
+- `log(x)`: Logaritmo de x.
+- `pow(x, y)`: Potencia de x elevado a y.
+- `fmod(x, y)`: Módulo de x dividido por y.
+
+### Uso de Funciones
+
+Para ejecutar funciones almacenadas en un archivo, no es necesario terminar con `;`. El intérprete ejecutará las operaciones listadas en el archivo y mostrará los resultados automáticamente:
 
 ```
 calculadoraBison:~$ load archivo.txt
@@ -124,3 +205,11 @@ s = 23.35
 calculadoraBison:~$ 
 ```
 
+### Consideraciones Adicionales
+
+- El intérprete es sensible al contexto de los comandos, lo que significa que los usuarios deben seguir el formato adecuado para asegurar el correcto procesamiento de las entradas.
+- El manejo de errores es fundamental; si se encuentra con mensajes de error, verifique la sintaxis y la validez de las operaciones realizadas.
+
+## Mensaje Final
+
+Gracias por visitar y explorar el proyecto de intérprete matemático. 
