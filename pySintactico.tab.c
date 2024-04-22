@@ -551,10 +551,10 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    68,    68,    69,    73,    74,    82,    83,    87,    88,
-      89,    98,    99,   100,   101,   102,   103,   107,   108,   109,
-     110,   111,   116,   143,   144,   145,   146,   156,   168,   180,
-     181,   185,   186,   187,   188,   189
+       0,    72,    72,    73,    77,    78,    86,    87,    91,    92,
+      93,   102,   103,   104,   105,   106,   107,   111,   112,   113,
+     114,   115,   120,   147,   148,   149,   150,   160,   172,   184,
+     185,   189,   190,   191,   192,   193
 };
 #endif
 
@@ -907,7 +907,27 @@ yydestruct (const char *yymsg,
   YY_SYMBOL_PRINT (yymsg, yykind, yyvaluep, yylocationp);
 
   YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
-  YY_USE (yykind);
+  switch (yykind)
+    {
+    case YYSYMBOL_NOMBRE_ARCHIVO: /* NOMBRE_ARCHIVO  */
+#line 60 "pySintactico.y"
+            {
+    free(((*yyvaluep).cadena));
+}
+#line 918 "pySintactico.tab.c"
+        break;
+
+    case YYSYMBOL_IDENTIFICADOR: /* IDENTIFICADOR  */
+#line 60 "pySintactico.y"
+            {
+    free(((*yyvaluep).cadena));
+}
+#line 926 "pySintactico.tab.c"
+        break;
+
+      default:
+        break;
+    }
   YY_IGNORE_MAYBE_UNINITIALIZED_END
 }
 
@@ -1170,13 +1190,13 @@ yyreduce:
   switch (yyn)
     {
   case 4: /* linea: '\n'  */
-#line 73 "pySintactico.y"
+#line 77 "pySintactico.y"
          { if(!getLoading()) printf("calculadoraBison:~$ "); }
-#line 1176 "pySintactico.tab.c"
+#line 1196 "pySintactico.tab.c"
     break;
 
   case 5: /* linea: expresion ';' '\n'  */
-#line 74 "pySintactico.y"
+#line 78 "pySintactico.y"
                          {
             if(!getLoading()){
                 if(devolverEcho()) {printf("» %.2f\n", (yyvsp[-2].numero));} 
@@ -1185,35 +1205,35 @@ yyreduce:
                 if(devolverEcho()) {printf("» %.2f\n", (yyvsp[-2].numero));} 
             }
         }
-#line 1189 "pySintactico.tab.c"
+#line 1209 "pySintactico.tab.c"
     break;
 
   case 6: /* linea: expresion '\n'  */
-#line 82 "pySintactico.y"
+#line 86 "pySintactico.y"
                      {if(!getLoading()) printf("calculadoraBison:~$ "); }
-#line 1195 "pySintactico.tab.c"
+#line 1215 "pySintactico.tab.c"
     break;
 
   case 7: /* linea: error  */
-#line 83 "pySintactico.y"
-            { yyclearin; yyerrok; }
-#line 1201 "pySintactico.tab.c"
+#line 87 "pySintactico.y"
+            { yyclearin; yyerrok;}
+#line 1221 "pySintactico.tab.c"
     break;
 
   case 8: /* expresion: NUMERO  */
-#line 87 "pySintactico.y"
+#line 91 "pySintactico.y"
            { (yyval.numero) = (yyvsp[0].numero); }
-#line 1207 "pySintactico.tab.c"
+#line 1227 "pySintactico.tab.c"
     break;
 
   case 9: /* expresion: '-' expresion  */
-#line 88 "pySintactico.y"
+#line 92 "pySintactico.y"
                               { (yyval.numero) = -(yyvsp[0].numero); }
-#line 1213 "pySintactico.tab.c"
+#line 1233 "pySintactico.tab.c"
     break;
 
   case 10: /* expresion: IDENTIFICADOR  */
-#line 89 "pySintactico.y"
+#line 93 "pySintactico.y"
                     {
         if (buscarComponente((yyvsp[0].cadena)) != 0) {
             (yyval.numero) = obtenerValor((yyvsp[0].cadena));
@@ -1223,56 +1243,56 @@ yyreduce:
             free((yyvsp[0].cadena)); // Asegurar liberación en todas las ramas
         }
     }
-#line 1227 "pySintactico.tab.c"
+#line 1247 "pySintactico.tab.c"
     break;
 
   case 11: /* expresion: '(' expresion ')'  */
-#line 98 "pySintactico.y"
+#line 102 "pySintactico.y"
                         { (yyval.numero) = (yyvsp[-1].numero); }
-#line 1233 "pySintactico.tab.c"
+#line 1253 "pySintactico.tab.c"
     break;
 
   case 12: /* expresion: WORKSPACE  */
-#line 99 "pySintactico.y"
+#line 103 "pySintactico.y"
                 { imprimirEspacioTrabajo(); }
-#line 1239 "pySintactico.tab.c"
+#line 1259 "pySintactico.tab.c"
     break;
 
   case 13: /* expresion: DELETE_WORKSPACE  */
-#line 100 "pySintactico.y"
+#line 104 "pySintactico.y"
                        { eliminarEspacioTrabajo(); }
-#line 1245 "pySintactico.tab.c"
+#line 1265 "pySintactico.tab.c"
     break;
 
   case 14: /* expresion: HELP  */
-#line 101 "pySintactico.y"
+#line 105 "pySintactico.y"
            { mostrarAyuda(); }
-#line 1251 "pySintactico.tab.c"
+#line 1271 "pySintactico.tab.c"
     break;
 
   case 15: /* expresion: TABLA  */
-#line 102 "pySintactico.y"
+#line 106 "pySintactico.y"
             { imprimirTabla(); }
-#line 1257 "pySintactico.tab.c"
+#line 1277 "pySintactico.tab.c"
     break;
 
   case 16: /* expresion: LOAD NOMBRE_ARCHIVO  */
-#line 103 "pySintactico.y"
+#line 107 "pySintactico.y"
                           {
         abrirArchivo((yyvsp[0].cadena));
         free((yyvsp[0].cadena)); // Asegurarse que el archivo no se usa después
     }
-#line 1266 "pySintactico.tab.c"
+#line 1286 "pySintactico.tab.c"
     break;
 
   case 17: /* expresion: CMD_ECHO  */
-#line 107 "pySintactico.y"
+#line 111 "pySintactico.y"
                { activarEcho(); }
-#line 1272 "pySintactico.tab.c"
+#line 1292 "pySintactico.tab.c"
     break;
 
   case 22: /* definicion: IDENTIFICADOR '=' expresion  */
-#line 116 "pySintactico.y"
+#line 120 "pySintactico.y"
                                 {
         token t;
         t.lexema = (yyvsp[-2].cadena);
@@ -1297,29 +1317,29 @@ yyreduce:
         }
         free((yyvsp[-2].cadena));
     }
-#line 1301 "pySintactico.tab.c"
+#line 1321 "pySintactico.tab.c"
     break;
 
   case 23: /* operaciones: expresion '+' expresion  */
-#line 143 "pySintactico.y"
+#line 147 "pySintactico.y"
                             { (yyval.numero) = (yyvsp[-2].numero) + (yyvsp[0].numero); }
-#line 1307 "pySintactico.tab.c"
+#line 1327 "pySintactico.tab.c"
     break;
 
   case 24: /* operaciones: expresion '-' expresion  */
-#line 144 "pySintactico.y"
+#line 148 "pySintactico.y"
                               { (yyval.numero) = (yyvsp[-2].numero) - (yyvsp[0].numero); }
-#line 1313 "pySintactico.tab.c"
+#line 1333 "pySintactico.tab.c"
     break;
 
   case 25: /* operaciones: expresion '*' expresion  */
-#line 145 "pySintactico.y"
+#line 149 "pySintactico.y"
                               { (yyval.numero) = (yyvsp[-2].numero) * (yyvsp[0].numero); }
-#line 1319 "pySintactico.tab.c"
+#line 1339 "pySintactico.tab.c"
     break;
 
   case 26: /* operaciones: expresion '/' expresion  */
-#line 146 "pySintactico.y"
+#line 150 "pySintactico.y"
                               {                
         if((yyvsp[0].numero) != 0) {
             (yyval.numero) = (yyvsp[-2].numero) / (yyvsp[0].numero);
@@ -1327,11 +1347,11 @@ yyreduce:
             yyerror("división entre 0");
         }
     }
-#line 1331 "pySintactico.tab.c"
+#line 1351 "pySintactico.tab.c"
     break;
 
   case 27: /* funciones: IDENTIFICADOR '(' expresion ')'  */
-#line 156 "pySintactico.y"
+#line 160 "pySintactico.y"
                                     {
         if(buscarComponente((yyvsp[-3].cadena)) == FUNCION) {
             componente = obtenerToken((yyvsp[-3].cadena));
@@ -1344,11 +1364,11 @@ yyreduce:
         else {yyerror("La función no existe");}
         free((yyvsp[-3].cadena)); 
     }
-#line 1348 "pySintactico.tab.c"
+#line 1368 "pySintactico.tab.c"
     break;
 
   case 28: /* funciones: IDENTIFICADOR '(' expresion ',' expresion ')'  */
-#line 168 "pySintactico.y"
+#line 172 "pySintactico.y"
                                                     {
         if(buscarComponente((yyvsp[-5].cadena)) == FUNCION) {
             componente = obtenerToken((yyvsp[-5].cadena));
@@ -1361,53 +1381,53 @@ yyreduce:
         else {yyerror("La función no existe"); printf("\n");}
         free((yyvsp[-5].cadena)); 
     }
-#line 1365 "pySintactico.tab.c"
+#line 1385 "pySintactico.tab.c"
     break;
 
   case 29: /* funciones: expresion '^' expresion  */
-#line 180 "pySintactico.y"
+#line 184 "pySintactico.y"
                               { (yyval.numero) = pow((yyvsp[-2].numero), (yyvsp[0].numero)); }
-#line 1371 "pySintactico.tab.c"
+#line 1391 "pySintactico.tab.c"
     break;
 
   case 30: /* funciones: expresion '%' expresion  */
-#line 181 "pySintactico.y"
+#line 185 "pySintactico.y"
                               { (yyval.numero) = fmod((yyvsp[-2].numero), (yyvsp[0].numero)); }
-#line 1377 "pySintactico.tab.c"
+#line 1397 "pySintactico.tab.c"
     break;
 
   case 31: /* booleano: expresion '>' expresion  */
-#line 185 "pySintactico.y"
+#line 189 "pySintactico.y"
                             { (yyval.numero) = (yyvsp[-2].numero) > (yyvsp[0].numero); }
-#line 1383 "pySintactico.tab.c"
+#line 1403 "pySintactico.tab.c"
     break;
 
   case 32: /* booleano: expresion '<' expresion  */
-#line 186 "pySintactico.y"
+#line 190 "pySintactico.y"
                               { (yyval.numero) = (yyvsp[-2].numero) < (yyvsp[0].numero); }
-#line 1389 "pySintactico.tab.c"
+#line 1409 "pySintactico.tab.c"
     break;
 
   case 33: /* booleano: expresion MAYOR_IGUAL expresion  */
-#line 187 "pySintactico.y"
+#line 191 "pySintactico.y"
                                       { (yyval.numero) = (yyvsp[-2].numero) >= (yyvsp[0].numero); }
-#line 1395 "pySintactico.tab.c"
+#line 1415 "pySintactico.tab.c"
     break;
 
   case 34: /* booleano: expresion MENOR_IGUAL expresion  */
-#line 188 "pySintactico.y"
+#line 192 "pySintactico.y"
                                       { (yyval.numero) = (yyvsp[-2].numero) <= (yyvsp[0].numero); }
-#line 1401 "pySintactico.tab.c"
+#line 1421 "pySintactico.tab.c"
     break;
 
   case 35: /* booleano: expresion IGUAL_IGUAL expresion  */
-#line 189 "pySintactico.y"
+#line 193 "pySintactico.y"
                                       { (yyval.numero) = (yyvsp[-2].numero) == (yyvsp[0].numero); }
-#line 1407 "pySintactico.tab.c"
+#line 1427 "pySintactico.tab.c"
     break;
 
 
-#line 1411 "pySintactico.tab.c"
+#line 1431 "pySintactico.tab.c"
 
       default: break;
     }
@@ -1600,7 +1620,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 192 "pySintactico.y"
+#line 197 "pySintactico.y"
 
 
 void activarEcho(){

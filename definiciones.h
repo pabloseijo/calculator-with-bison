@@ -15,7 +15,6 @@
 #define CONSTANTE 300
 #define VARIABLE 301
 #define FUNCION 302
-#define COMANDO 303
 
 
 

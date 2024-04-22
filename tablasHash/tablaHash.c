@@ -213,7 +213,7 @@ int deleteToken(hashTable tabla, char *lexema) {
     token *actual = tabla[index];
     token *anterior = NULL; 
 
-    while (actual != NULL) {
+    while (actual != NULL && actual->lexema != NULL) {
         if (strcmp(actual->lexema, lexema) == 0) {
             if (anterior == NULL) {
                 tabla[index] = actual->next;
@@ -297,14 +297,33 @@ void printWorkingSpace(hashTable tabla) {
 
 // Elimina todas las variables del espacio de trabajo.
 void deleteWorkingSpace(hashTable tabla) {
-    for (int index = 0; index < TABLE_SIZE; ++index) {
-        for (token *actual = tabla[index]; actual != NULL; actual = actual->next) {
+    for (int index = 0; index < TABLE_SIZE; index++) {
+        token *actual = tabla[index];
+        token *previo = NULL;
+        
+        while (actual != NULL) {
             if (actual->componente == VARIABLE) {
-                deleteToken(tabla, actual->lexema);
+                token *aEliminar = actual;
+                if (previo == NULL) {
+                    tabla[index] = actual->next; 
+
+                } else {
+                    previo->next = actual->next; 
+
+                }
+                
+                actual = actual->next; 
+
+                free(aEliminar->lexema);
+                free(aEliminar);
+            } else {
+                previo = actual;      
+                actual = actual->next;
             }
         }
     }
 }
+
 
 // Busca un token por su lexema y devuelve el token si existe.
 token getToken(hashTable tabla, char *lexema){

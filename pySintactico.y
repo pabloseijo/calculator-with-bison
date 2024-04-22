@@ -57,6 +57,10 @@
 %left '%' '^'
 %nonassoc MAYOR_IGUAL MENOR_IGUAL IGUAL_IGUAL '>' '<'
 
+%destructor {
+    free($<cadena>$);
+} <cadena>
+
 %type <numero> expresion
 %type <numero> definicion
 %type <numero> operaciones
@@ -80,7 +84,7 @@ linea:
             }
         }  
     | expresion '\n' {if(!getLoading()) printf("calculadoraBison:~$ "); }  
-    | error { yyclearin; yyerrok; }
+    | error { yyclearin; yyerrok;}
 ;
 
 expresion:
@@ -188,6 +192,7 @@ booleano:
     | expresion MENOR_IGUAL expresion { $$ = $1 <= $3; }
     | expresion IGUAL_IGUAL expresion { $$ = $1 == $3; }
 ;
+
 
 %%
 
