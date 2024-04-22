@@ -13,7 +13,6 @@
 - [Compilación y Ejecución](#compilación-y-ejecución)
 - [Comandos Disponibles](#comandos-disponibles)
 - [Uso](#uso)
-- [Mensaje Final](#mensaje-final)
 
 ## Descripción
 
@@ -209,7 +208,3 @@ calculadoraBison:~$
 
 - El intérprete es sensible al contexto de los comandos, lo que significa que los usuarios deben seguir el formato adecuado para asegurar el correcto procesamiento de las entradas.
 - El manejo de errores es fundamental; si se encuentra con mensajes de error, verifique la sintaxis y la validez de las operaciones realizadas.
-
-## Mensaje Final
-
-Gracias por visitar y explorar el proyecto de intérprete matemático. 
