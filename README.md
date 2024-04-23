@@ -91,6 +91,13 @@ Para ejecutar el siguiente intérprete:
 
 Utiliza make clean para limpiar objetos compilados y make cleanall para eliminar todos los archivos generados.
 
+Si queremos recompilar los archivos de flex y bison hacemos:
+
+```
+flex pyLexico.l
+bison -d pySintactico.y
+```
+
 ## Comandos Disponibles
 
 #### `help`
